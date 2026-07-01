@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
-import { Hero } from "@/components/site/Hero";
 import {
   About,
   Services,
@@ -19,7 +18,7 @@ export const Route = createFileRoute("/")({
       {
         name: "keywords",
         content:
-          "consultoria tecnologia, SOC as a service, cybersecurity, cloud, inteligência artificial, especialistas TI",
+          "consultoria tecnologia, SOC as a service, cybersecurity, cloud, inteligÃªncia artificial, especialistas TI",
       },
     ],
   }),
@@ -30,7 +29,6 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground selection:bg-neon-cyan/30 selection:text-foreground">
       <Nav />
       <main>
-        <Hero />
         <About />
         <Services />
         <Operation />
