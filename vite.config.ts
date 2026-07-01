@@ -1,0 +1,32 @@
+import tailwindcss from "@tailwindcss/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  server: {
+    host: "127.0.0.1",
+    port: 8080,
+  },
+  resolve: {
+    tsconfigPaths: true,
+    alias: {
+      "@": new URL("./src", import.meta.url).pathname,
+    },
+    dedupe: ["react", "react-dom", "@tanstack/react-query", "@tanstack/query-core"],
+  },
+  plugins: [
+    tailwindcss(),
+    tanstackStart({
+      server: { entry: "server" },
+      importProtection: {
+        behavior: "error",
+        client: {
+          files: ["**/server/**"],
+          specifiers: ["server-only"],
+        },
+      },
+    }),
+    react(),
+  ],
+});
