@@ -1,4 +1,4 @@
-﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -73,14 +73,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Master Agent - Hub estrategico de especialistas em tecnologia" },
+      { title: "Master Agent - Hub estratégico de especialistas em tecnologia" },
       {
         name: "description",
         content:
-          "Master Agent conecta empresas aos melhores especialistas em Cloud, CyberSecurity, SOC, IA, dados e desenvolvimento. Agentes sob demanda para acelerar sua operacao digital.",
+          "Master Agent conecta empresas aos melhores especialistas em Cloud, CyberSecurity, SOC, IA, dados e desenvolvimento. Agentes sob demanda para acelerar sua operação digital.",
       },
       { name: "author", content: "Master Agent" },
-      { property: "og:title", content: "Master Agent - Hub estrategico de tecnologia" },
+      { property: "og:title", content: "Master Agent - Hub estratégico de tecnologia" },
       {
         property: "og:description",
         content:
@@ -99,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
       },
     ],
   }),

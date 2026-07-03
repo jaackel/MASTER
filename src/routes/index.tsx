@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
       {
         name: "keywords",
         content:
-          "consultoria tecnologia, SOC as a service, cybersecurity, cloud, inteligÃƒÂªncia artificial, especialistas TI",
+          "consultoria tecnologia, SOC as a service, cybersecurity, cloud, inteligência artificial, especialistas TI",
       },
     ],
   }),

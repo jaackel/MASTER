@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, ShieldCheck, Radio } from "lucide-react";
+import ElectricBorder from "./ElectricBorder";
+import Antigravity from "./Antigravity";
 
 const lines = [
   { prompt: "master@agent:~$", text: "init secure_channel --encrypted" },
@@ -35,27 +37,32 @@ export function Hero() {
       {/* Grid overlay */}
       <div className="absolute inset-0 bg-tech-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 18 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-neon-cyan animate-float-particle"
-            style={{
-              left: `${(i * 53) % 100}%`,
-              top: `${(i * 37) % 100}%`,
-              animationDelay: `${i * 0.4}s`,
-              animationDuration: `${5 + (i % 4)}s`,
-            }}
-          />
-        ))}
+      {/* Interactive Antigravity background */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <Antigravity
+          count={120}
+          magnetRadius={15}
+          ringRadius={12}
+          waveSpeed={0.02}
+          waveAmplitude={0.1}
+          particleSize={0.6}
+          lerpSpeed={0.01}
+          color="#0064ff"
+          autoAnimate
+          particleVariance={0.2}
+          rotationSpeed={0}
+          depthFactor={1.2}
+          pulseSpeed={0.1}
+          particleShape="box"
+          fieldStrength={10}
+        />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center min-h-[calc(100vh-6rem)]">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center min-h-[calc(100vh-6rem)]">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-xs font-mono text-neon-cyan mb-8">
             <Radio className="w-3 h-3 animate-pulse-glow" />
-            <span className="tracking-wider">CANAL SEGURO Â· ACESSO RESTRITO</span>
+            <span className="tracking-wider">CANAL SEGURO · ACESSO RESTRITO</span>
           </div>
 
           <h1 className="font-sans text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.95]">
@@ -66,17 +73,17 @@ export function Hero() {
           </h1>
 
           <p className="mt-8 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            O hub estratÃ©gico que conecta empresas aos melhores{" "}
+            O hub estratégico que conecta empresas aos melhores{" "}
             <span className="text-foreground">especialistas em tecnologia</span>. Agentes sob
-            demanda para acelerar sua operaÃ§Ã£o digital.
+            demanda para acelerar sua operação digital.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="#servicos"
-              className="group inline-flex items-center gap-2 h-12 px-6 rounded-md bg-gradient-to-r from-neon-blue to-neon-cyan text-background font-medium text-sm tracking-wide shadow-[0_0_30px_oklch(0.72_0.2_240/0.4)] hover:shadow-[0_0_50px_oklch(0.72_0.2_240/0.6)] transition-all"
+              className="group inline-flex items-center gap-2 h-12 px-6 rounded-md bg-gradient-to-r from-neon-blue to-neon-cyan text-background font-medium text-sm tracking-wide shadow-[0_0_30px_oklch(0.60_0.23_218/0.4)] hover:shadow-[0_0_50px_oklch(0.60_0.23_218/0.6)] transition-all"
             >
-              ConheÃ§a nossas soluÃ§Ãµes
+              Conheça nossas soluções
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
@@ -107,15 +114,18 @@ export function Hero() {
         {/* Terminal panel */}
         <div className="relative animate-fade-up" style={{ animationDelay: "0.2s" }}>
           <div className="glass-panel rounded-lg overflow-hidden shadow-[var(--shadow-panel)] scanline">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-surface/60">
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-destructive/70" />
-                <div className="w-2.5 h-2.5 rounded-full bg-neon-cyan/50" />
-                <div className="w-2.5 h-2.5 rounded-full bg-neon-blue/70" />
+            <div className="flex items-center justify-between px-4 py-2 border-b border-border/40 bg-surface/80">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono text-muted-foreground tracking-wider flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-neon-cyan/80 inline-block" />
+                  master@agent:~
+                </span>
               </div>
-              <span className="ml-3 text-[11px] font-mono text-muted-foreground tracking-wider">
-                secure_shell â€” master@agent â€” 80Ã—24
-              </span>
+              <div className="flex items-center gap-3 text-muted-foreground/60 text-xs font-mono select-none">
+                <button className="hover:text-foreground transition-colors font-light" aria-label="Minimize">—</button>
+                <button className="hover:text-foreground transition-colors text-[10px]" aria-label="Maximize">☐</button>
+                <button className="text-red-500 hover:text-red-400 transition-colors text-sm font-semibold" aria-label="Close">×</button>
+              </div>
             </div>
             <div className="p-6 font-mono text-sm min-h-[320px] leading-relaxed">
               {typed.map((t, i) => (
@@ -140,14 +150,14 @@ export function Hero() {
                     {lines[lineIdx].prompt}
                   </span>{" "}
                   <span className="text-foreground/80">{current}</span>
-                  <span className="text-neon-cyan animate-blink">â–ˆ</span>
+                  <span className="text-neon-cyan animate-blink">█</span>
                 </div>
               )}
               {lineIdx >= lines.length && (
                 <div className="mt-4 pt-4 border-t border-border/40 text-xs text-muted-foreground">
                   <div className="flex justify-between">
                     <span>threat_level</span>
-                    <span className="text-neon-cyan">â—‰ NOMINAL</span>
+                    <span className="text-neon-cyan">◉ NOMINAL</span>
                   </div>
                   <div className="flex justify-between mt-1">
                     <span>uptime</span>
@@ -162,7 +172,7 @@ export function Hero() {
             </div>
           </div>
           {/* Ambient glow */}
-          <div className="absolute -inset-6 -z-10 bg-gradient-to-tr from-neon-blue/20 via-transparent to-neon-cyan/10 blur-3xl" />
+          <div className="absolute -inset-6 -z-10 bg-gradient-to-tr from-neon-blue/20 via-transparent to-neon-cyan/10 blur-3xl pointer-events-none" />
         </div>
       </div>
     </section>
