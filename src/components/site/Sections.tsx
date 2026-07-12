@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Cloud,
   ShieldCheck,
@@ -22,6 +23,7 @@ import {
   Mail,
   ArrowRight,
 } from "lucide-react";
+import ScrollFloat from "./ScrollFloat";
 
 /* ─────────── SECTION HEADER ─────────── */
 function SectionHeader({
@@ -53,7 +55,7 @@ export function About() {
     { icon: Layers, label: "Escala", value: "Sob demanda" },
   ];
   return (
-    <section id="sobre" className="relative py-32 border-t border-border/40">
+    <section id="sobre" className="relative py-32">
       <div className="absolute inset-0 bg-tech-grid opacity-20 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
         <div>
@@ -157,12 +159,449 @@ const services = [
   },
 ];
 
+const hubNodes = [
+  { id: "cloud",                 label: "Cloud",                  src: "/journey/step-01.svg", cx: 600.01, cy: 125,    ix: 600.02, iy: 255 },
+  { id: "ia",                    label: "IA",                     src: "/journey/step-05.svg", cx: 869,    cy: 184,    ix: 692,    iy: 275 },
+  { id: "data-lake",             label: "Data Lake",              src: "/journey/step-03.svg", cx: 980,    cy: 325.01, ix: 730,    iy: 325.02 },
+  { id: "apis-integracoes",      label: "APIs / Integrações",     src: "/journey/step-07.svg", cx: 869,    cy: 466,    ix: 692,    iy: 375 },
+  { id: "processamento-dados",   label: "Processamento de Dados", src: "/journey/step-04.svg", cx: 600.01, cy: 525,    ix: 600.02, iy: 395 },
+  { id: "infraestrutura",        label: "Infraestrutura",         src: "/journey/step-01.svg", cx: 331,    cy: 466,    ix: 508,    iy: 375 },
+  { id: "integracoes",           label: "Integrações",            src: "/journey/step-02.svg", cx: 220,    cy: 325.01, ix: 470,    iy: 325.02 },
+  { id: "analytics",             label: "Analytics",              src: "/journey/step-06.svg", cx: 331,    cy: 184,    ix: 508,    iy: 275 },
+];
+
+const centerNode = { id: "cyber", label: "Cyber Security", src: "/journey/step-cyber.svg", cx: 600, cy: 325 };
+
+function JourneyCarousel() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+
+  const STAGE_W = 1200;
+  const STAGE_H = 650;
+
+  // Phase 2 Toggle: Set to false to return to Phase 1 (Simple Hexagon)
+  const IS_PHASE_2 = true;
+
+  const updateScale = useCallback(() => {
+    if (!wrapRef.current) return;
+    setScale(Math.min(1, wrapRef.current.clientWidth / STAGE_W));
+  }, [STAGE_W]);
+
+  useEffect(() => {
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, [updateScale]);
+
+  // Helper to render 3D Isometric Hexagon Pedestal for surrounding nodes
+  const renderPedestal = (node: typeof hubNodes[0], isActive: boolean) => {
+    const cx = node.cx;
+    const cy = node.cy + 30;
+    const rx = 52;
+    const ry = 24;
+    const thick = 12;
+
+    const p1 = `${cx - rx},${cy}`;
+    const p2 = `${cx - rx/2},${cy - ry}`;
+    const p3 = `${cx + rx/2},${cy - ry}`;
+    const p4 = `${cx + rx},${cy}`;
+    const p5 = `${cx + rx/2},${cy + ry}`;
+    const p6 = `${cx - rx/2},${cy + ry}`;
+    const topPoints = `${p1} ${p2} ${p3} ${p4} ${p5} ${p6}`;
+
+    const w1Points = `${cx - rx},${cy} ${cx - rx/2},${cy + ry} ${cx - rx/2},${cy + ry + thick} ${cx - rx},${cy + thick}`;
+    const w2Points = `${cx - rx/2},${cy + ry} ${cx + rx/2},${cy + ry} ${cx + rx/2},${cy + ry + thick} ${cx - rx/2},${cy + ry + thick}`;
+    const w3Points = `${cx + rx/2},${cy + ry} ${cx + rx},${cy} ${cx + rx},${cy + thick} ${cx + rx/2},${cy + ry + thick}`;
+
+    const strokeColor = isActive ? "var(--neon-cyan)" : "rgba(14,165,233,0.25)";
+    const strokeWidth = isActive ? "2" : "1";
+    const glowFilter = isActive ? "url(#glow-line)" : undefined;
+
+    return (
+      <g key={`pedestal-${node.id}`} className="transition-all duration-300">
+        {/* 3D Side Walls */}
+        <polygon points={w1Points} fill="#051c27" stroke="rgba(14,165,233,0.15)" strokeWidth="0.5" />
+        <polygon points={w2Points} fill="#062230" stroke="rgba(14,165,233,0.15)" strokeWidth="0.5" />
+        <polygon points={w3Points} fill="#051c27" stroke="rgba(14,165,233,0.15)" strokeWidth="0.5" />
+
+        {/* Top Surface */}
+        <polygon
+          points={topPoints}
+          fill="rgba(8,30,44,0.92)"
+          stroke={strokeColor}
+          strokeWidth={strokeWidth}
+          filter={glowFilter}
+          style={{ transition: "stroke 0.3s, stroke-width 0.3s" }}
+        />
+
+        {/* Lower Front Glowing Edges */}
+        <polyline
+          points={`${cx - rx},${cy + thick} ${cx - rx/2},${cy + ry + thick} ${cx + rx/2},${cy + ry + thick} ${cx + rx},${cy + thick}`}
+          fill="none"
+          stroke={isActive ? "var(--neon-cyan)" : "rgba(14,165,233,0.15)"}
+          strokeWidth={strokeWidth}
+          filter={glowFilter}
+          opacity={isActive ? "1" : "0.5"}
+          style={{ transition: "stroke 0.3s, stroke-width 0.3s" }}
+        />
+      </g>
+    );
+  };
+
+  // Helper to render larger 3D Isometric Hexagon Pedestal for center node
+  const renderCenterPedestal = (isActive: boolean) => {
+    const cx = centerNode.cx;
+    const cy = centerNode.cy + 40;
+    const rx = 72;
+    const ry = 32;
+    const thick = 16;
+
+    const p1 = `${cx - rx},${cy}`;
+    const p2 = `${cx - rx/2},${cy - ry}`;
+    const p3 = `${cx + rx/2},${cy - ry}`;
+    const p4 = `${cx + rx},${cy}`;
+    const p5 = `${cx + rx/2},${cy + ry}`;
+    const p6 = `${cx - rx/2},${cy + ry}`;
+    const topPoints = `${p1} ${p2} ${p3} ${p4} ${p5} ${p6}`;
+
+    const w1Points = `${cx - rx},${cy} ${cx - rx/2},${cy + ry} ${cx - rx/2},${cy + ry + thick} ${cx - rx},${cy + thick}`;
+    const w2Points = `${cx - rx/2},${cy + ry} ${cx + rx/2},${cy + ry} ${cx + rx/2},${cy + ry + thick} ${cx - rx/2},${cy + ry + thick}`;
+    const w3Points = `${cx + rx/2},${cy + ry} ${cx + rx},${cy} ${cx + rx},${cy + thick} ${cx + rx/2},${cy + ry + thick}`;
+
+    const strokeColor = isActive ? "var(--neon-cyan)" : "rgba(14,165,233,0.3)";
+    const strokeWidth = isActive ? "2.5" : "1.5";
+    const glowFilter = isActive ? "url(#glow-line)" : undefined;
+
+    return (
+      <g key="center-pedestal" className="transition-all duration-300">
+        {/* 3D Side Walls */}
+        <polygon points={w1Points} fill="#03121b" stroke="rgba(14,165,233,0.2)" strokeWidth="0.5" />
+        <polygon points={w2Points} fill="#051a26" stroke="rgba(14,165,233,0.2)" strokeWidth="0.5" />
+        <polygon points={w3Points} fill="#03121b" stroke="rgba(14,165,233,0.2)" strokeWidth="0.5" />
+
+        {/* Top Surface */}
+        <polygon
+          points={topPoints}
+          fill="rgba(5,28,40,0.95)"
+          stroke={strokeColor}
+          strokeWidth={strokeWidth}
+          filter={glowFilter}
+          style={{ transition: "stroke 0.3s, stroke-width 0.3s" }}
+        />
+
+        {/* Lower Front Glowing Edges */}
+        <polyline
+          points={`${cx - rx},${cy + thick} ${cx - rx/2},${cy + ry + thick} ${cx + rx/2},${cy + ry + thick} ${cx + rx},${cy + thick}`}
+          fill="none"
+          stroke={strokeColor}
+          strokeWidth={strokeWidth}
+          filter={glowFilter}
+          opacity={isActive ? "1" : "0.6"}
+          style={{ transition: "stroke 0.3s, stroke-width 0.3s" }}
+        />
+      </g>
+    );
+  };
+
+  return (
+    <div className="py-24 w-full bg-transparent">
+      <div className="max-w-7xl mx-auto px-6 mb-16">
+        <div className="grid lg:grid-cols-[1.1fr_1.2fr] gap-8 items-end animate-fade-up">
+          <div>
+            <div className="inline-flex items-center gap-2 mb-4 text-xs font-mono tracking-[0.25em] text-neon-cyan">
+              <span className="w-8 h-px bg-neon-cyan" />
+              // MÓDULOS OPERACIONAIS
+            </div>
+            <ScrollFloat
+              animationDuration={0.8}
+              ease='back.out(1.5)'
+              scrollStart='top bottom-=10%'
+              scrollEnd='bottom center'
+              stagger={0.03}
+              containerClassName="text-4xl sm:text-5xl font-semibold tracking-tight leading-none text-foreground"
+              textClassName="scroll-float-text"
+            >
+              {"Cyber Security ".split("").map((c, i) => (
+                <span key={`1-${i}`} className="char">{c === " " ? "\u00A0" : c}</span>
+              ))}
+              <br />
+              {"no ".split("").map((c, i) => (
+                <span key={`2-${i}`} className="char">{c === " " ? "\u00A0" : c}</span>
+              ))}
+              <span className="text-gradient-neon">
+                {"centro de tudo".split("").map((c, i) => (
+                  <span key={`3-${i}`} className="char">{c === " " ? "\u00A0" : c}</span>
+                ))}
+              </span>
+            </ScrollFloat>
+          </div>
+          <div>
+            <p className="text-muted-foreground text-lg leading-relaxed lg:border-l lg:border-border/40 lg:pl-8">
+              Uma arquitetura resiliente. Protegemos cada fluxo de dados e ponta de infraestrutura. Do processamento na nuvem à IA, a segurança interliga todo o seu ecossistema técnico.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Stage Wrapper */}
+      <div ref={wrapRef} className="w-full overflow-hidden flex justify-center py-10">
+        <div
+          style={{
+            width: STAGE_W,
+            height: STAGE_H,
+            transform: `scale(${scale})`,
+            transformOrigin: "top center",
+            marginBottom: (STAGE_H * scale) - STAGE_H,
+            position: "relative",
+            flexShrink: 0,
+          }}
+        >
+          {/* Grid Background */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+            <img
+              src="/journey/grid-background.svg"
+              alt=""
+              className="w-full h-full object-contain"
+              draggable={false}
+            />
+          </div>
+
+          {/* SVG Connector Lines */}
+          <svg
+            width={STAGE_W}
+            height={STAGE_H}
+            className="absolute inset-0 pointer-events-none z-0 overflow-visible"
+          >
+            <defs>
+              <filter id="glow-line" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            {/* A. 3D Isometric Hexagon Pedestal Platforms under Outer Nodes (Phase 2) */}
+            {IS_PHASE_2 && hubNodes.map((node) => {
+              const isActive = hoveredNode === node.id || hoveredNode === centerNode.id;
+              return renderPedestal(node, isActive);
+            })}
+
+            {/* B. 3D Isometric Hexagon Pedestal under Center Node (Phase 2) */}
+            {IS_PHASE_2 && renderCenterPedestal(hoveredNode === centerNode.id || hoveredNode !== null)}
+
+            {/* 1. Outer Octagonal Ring */}
+            {hubNodes.map((node, index) => {
+              const nextNode = hubNodes[(index + 1) % hubNodes.length];
+              const isActive = hoveredNode === centerNode.id;
+              return (
+                <line
+                  key={`ring-${node.id}`}
+                  x1={node.cx}
+                  y1={node.cy}
+                  x2={nextNode.cx}
+                  y2={nextNode.cy}
+                  stroke={isActive ? "var(--neon-cyan)" : "rgba(14,165,233,0.15)"}
+                  strokeWidth={isActive ? "2.5" : "1.2"}
+                  className={`pulse-line ${isActive ? "active" : ""}`}
+                  filter={isActive ? "url(#glow-line)" : ""}
+                />
+              );
+            })}
+
+            {/* 2. Inner Octagonal Ring */}
+            <polygon
+              points="600.02,255 692,275 730,325.02 692,375 600.02,395 508,375 470,325.02 508,275"
+              stroke={hoveredNode === centerNode.id ? "var(--neon-cyan)" : "rgba(14,165,233,0.2)"}
+              strokeWidth={hoveredNode === centerNode.id ? "3" : "1.5"}
+              fill="rgba(5,40,56,0.12)"
+              className={`pulse-line ${hoveredNode === centerNode.id ? "active" : ""}`}
+              filter={hoveredNode === centerNode.id ? "url(#glow-line)" : ""}
+              style={{
+                transition: "stroke 0.3s, stroke-width 0.3s",
+              }}
+            />
+
+            {/* Concentric Nested Inner Rings (Phase 2) */}
+            {IS_PHASE_2 && (
+              <>
+                {/* Mid-inner Ring (80% size) */}
+                <polygon
+                  points="600.02,269 673.5,285.4 704,325.02 673.5,364.6 600.02,381 526.5,364.6 496,325.02 526.5,285.4"
+                  stroke={hoveredNode === centerNode.id ? "var(--neon-cyan)" : "rgba(14,165,233,0.12)"}
+                  strokeWidth="1"
+                  fill="transparent"
+                  className="transition-all duration-300 opacity-60"
+                />
+                {/* Smallest-inner Ring (55% size) */}
+                <polygon
+                  points="600.02,286.5 650.5,297.8 671.5,325.02 650.5,352.2 600.02,363.5 549.5,352.2 528.5,325.02 549.5,297.8"
+                  stroke={hoveredNode === centerNode.id ? "var(--neon-cyan)" : "rgba(14,165,233,0.08)"}
+                  strokeWidth="1"
+                  fill="transparent"
+                  className="transition-all duration-300 opacity-40"
+                />
+              </>
+            )}
+
+            {/* 3. Spokes (Outer Nodes to Inner Octagon Vertices) */}
+            {hubNodes.map((node) => {
+              const isActive = hoveredNode === node.id || hoveredNode === centerNode.id;
+              return (
+                <line
+                  key={`spoke-${node.id}`}
+                  x1={node.cx}
+                  y1={node.cy}
+                  x2={node.ix}
+                  y2={node.iy}
+                  stroke={isActive ? "var(--neon-cyan)" : "rgba(14,165,233,0.25)"}
+                  strokeWidth={isActive ? "3" : "1.5"}
+                  className={`pulse-line ${isActive ? "active" : ""}`}
+                  filter={isActive ? "url(#glow-line)" : ""}
+                />
+              );
+            })}
+
+            {/* 4. Spoke SMIL Animated Data Particles (Phase 2) */}
+            {IS_PHASE_2 && hubNodes.map((node) => {
+              const isActive = hoveredNode === node.id || hoveredNode === centerNode.id;
+              if (!isActive) return null;
+              return (
+                <circle key={`spoke-particle-${node.id}`} r="3" fill="#00d8ff" filter="url(#glow-line)">
+                  <animate
+                    attributeName="cx"
+                    from={node.cx}
+                    to={node.ix}
+                    dur="2.0s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="cy"
+                    from={node.cy}
+                    to={node.iy}
+                    dur="2.0s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              );
+            })}
+
+            {/* 5. Ring SMIL Animated Data Particles (Phase 2) */}
+            {IS_PHASE_2 && hubNodes.map((node, index) => {
+              const nextNode = hubNodes[(index + 1) % hubNodes.length];
+              const isActive = hoveredNode === centerNode.id;
+              if (!isActive) return null;
+              const delay = `${(index * 0.4).toFixed(1)}s`;
+              return (
+                <circle key={`ring-particle-${node.id}`} r="2.5" fill="#00f0ff" filter="url(#glow-line)">
+                  <animate
+                    attributeName="cx"
+                    from={node.cx}
+                    to={nextNode.cx}
+                    dur="3s"
+                    begin={delay}
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="cy"
+                    from={node.cy}
+                    to={nextNode.cy}
+                    dur="3s"
+                    begin={delay}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              );
+            })}
+          </svg>
+
+          {/* Render Surrounding Nodes */}
+          {hubNodes.map((node) => {
+            const isHovered = hoveredNode === node.id;
+            return (
+              <div
+                key={node.id}
+                className="absolute flex flex-col items-center justify-center hub-node-container group"
+                style={{
+                  left: node.cx - 75,
+                  top: node.cy - 90,
+                  width: 150,
+                  height: 180,
+                  cursor: "pointer",
+                }}
+                onMouseEnter={() => setHoveredNode(node.id)}
+                onMouseLeave={() => setHoveredNode(null)}
+              >
+                {/* 3D Icon with Lift */}
+                <div className="relative w-28 h-28 flex items-center justify-center transition-all duration-300">
+                  <img
+                    src={node.src}
+                    alt={node.label}
+                    className="w-full h-full object-contain"
+                    draggable={false}
+                  />
+                  {/* Subtle hover glow circle behind icon */}
+                  <div className="absolute inset-4 -z-10 bg-neon-cyan/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* Pill Label */}
+                <div className="mt-3 px-3 py-1 rounded bg-[#091F2C]/90 border border-border/60 text-[10px] font-mono font-semibold tracking-wider text-muted-foreground group-hover:text-neon-cyan group-hover:border-neon-cyan/50 transition-all duration-300">
+                  {node.label.toUpperCase()}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Render Center Node (Cyber Security) */}
+          <div
+            className="absolute flex flex-col items-center justify-center hub-node-container group"
+            style={{
+              left: centerNode.cx - 90,
+              top: centerNode.cy - 95,
+              width: 180,
+              height: 180,
+              cursor: "pointer",
+              zIndex: 20,
+            }}
+            onMouseEnter={() => setHoveredNode(centerNode.id)}
+            onMouseLeave={() => setHoveredNode(null)}
+          >
+            {/* Larger 3D Icon with pulsing ambient glow */}
+            <div className="relative w-36 h-36 flex items-center justify-center transition-all duration-300">
+              <img
+                src={centerNode.src}
+                alt={centerNode.label}
+                className="w-full h-full object-contain filter drop-shadow-[0_0_20px_oklch(0.64_0.23_218/0.4)]"
+                draggable={false}
+              />
+              <div className="absolute inset-4 -z-10 bg-neon-blue/30 blur-2xl rounded-full animate-pulse-glow" />
+            </div>
+
+            {/* Brighter Pill Label - moved closer to the icon */}
+            <div className="mt-[-24px] px-4 py-1.5 rounded-full bg-[#052838]/90 border border-neon-cyan/50 text-[11px] font-mono font-bold tracking-wider text-neon-cyan shadow-[0_0_20px_oklch(0.64_0.23_218/0.3)] group-hover:scale-105 transition-transform duration-300">
+              {centerNode.label.toUpperCase()}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Services() {
   return (
-    <section id="servicos" className="relative py-32 border-t border-border/40">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="servicos" className="relative pt-12">
+      {/* Full-width journey carousel rendered first */}
+      <JourneyCarousel />
+
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-20">
         <SectionHeader
-          eyebrow="// MÓDULOS OPERACIONAIS"
+          eyebrow="// ARQUITETURA DE SOLUÇÕES"
           title={
             <>
               Serviços da <span className="text-gradient-neon">central</span>
@@ -233,7 +672,7 @@ const missions = [
 
 export function Operation() {
   return (
-    <section id="operacao" className="relative py-32 border-t border-border/40 overflow-hidden">
+    <section id="operacao" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-tech-grid opacity-25" />
       <div className="relative max-w-7xl mx-auto px-6">
         <SectionHeader
@@ -307,7 +746,7 @@ export function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="relative py-32 border-t border-border/40">
+    <section id="portfolio" className="relative py-32">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// OPERAÇÕES REALIZADAS"
@@ -383,7 +822,7 @@ export function Soc() {
   ];
 
   return (
-    <section id="soc" className="relative py-32 border-t border-border/40 overflow-hidden">
+    <section id="soc" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-neon-blue/[0.04] via-transparent to-transparent" />
       <div className="absolute inset-0 bg-tech-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
 
@@ -487,7 +926,7 @@ export function Differentials() {
     },
   ];
   return (
-    <section className="relative py-32 border-t border-border/40">
+    <section className="relative py-32">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// DIFERENCIAIS"
@@ -521,7 +960,7 @@ export function Differentials() {
 /* ─────────── CONTACT ─────────── */
 export function Contact() {
   return (
-    <section id="contato" className="relative py-32 border-t border-border/40 overflow-hidden">
+    <section id="contato" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-hero opacity-80" />
       <div className="absolute inset-0 bg-tech-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
 
@@ -574,7 +1013,7 @@ export function Contact() {
 /* ─────────── FOOTER ─────────── */
 export function Footer() {
   return (
-    <footer className="relative border-t border-border/40 py-10">
+    <footer className="relative py-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
         <div className="flex items-center gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />

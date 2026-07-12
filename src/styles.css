@@ -217,6 +217,19 @@
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
 @keyframes terminal-type {
   from {
     width: 0;
@@ -248,4 +261,32 @@
 }
 .animate-fade-up {
   animation: fade-up 0.8s ease-out both;
+}
+
+/* ── Journey Hub Interactivity ── */
+@keyframes line-pulse {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.pulse-line {
+  stroke-dasharray: 6 8;
+  animation: line-pulse 1.2s linear infinite;
+  transition: stroke-width 0.3s ease, opacity 0.3s ease, stroke 0.3s ease;
+}
+
+.pulse-line.active {
+  stroke-width: 3.5;
+  stroke: var(--neon-cyan);
+  opacity: 1;
+}
+
+.hub-node-container {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s ease;
+  will-change: transform;
+}
+
+.hub-node-container:hover {
+  transform: translateY(-8px);
 }

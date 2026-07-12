@@ -58,7 +58,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center min-h-[calc(100vh-6rem)]">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_0.9fr_0.9fr] gap-8 lg:gap-10 items-center min-h-[calc(100vh-6rem)]">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-xs font-mono text-neon-cyan mb-8">
             <Radio className="w-3 h-3 animate-pulse-glow" />
@@ -173,6 +173,20 @@ export function Hero() {
           </div>
           {/* Ambient glow */}
           <div className="absolute -inset-6 -z-10 bg-gradient-to-tr from-neon-blue/20 via-transparent to-neon-cyan/10 blur-3xl pointer-events-none" />
+        </div>
+
+        {/* Futuristic Illustration column */}
+        <div className="relative flex items-center justify-center animate-fade-up" style={{ animationDelay: "0.3s" }}>
+          <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-square flex items-center justify-center animate-float">
+            {/* Soft backdrop glow behind illustration */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" />
+            <img 
+              src="https://roxpartner.com/wp-content/uploads/2024/05/Ilustra-20.png" 
+              alt="Cyber Security Cybernetic Shield" 
+              className="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(0,216,255,0.25)]"
+              draggable={false}
+            />
+          </div>
         </div>
       </div>
     </section>

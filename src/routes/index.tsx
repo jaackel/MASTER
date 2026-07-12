@@ -31,12 +31,12 @@ function Index() {
       <Nav />
       <main>
         <Hero />
-        <About />
         <Services />
         <Operation />
         <Portfolio />
         <Soc />
         <Differentials />
+        <About />
         <Contact />
       </main>
       <Footer />
