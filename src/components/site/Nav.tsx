@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Terminal } from "lucide-react";
 
 const links = [
   { href: "#servicos", label: "Serviços" },
@@ -28,8 +27,13 @@ export function Nav() {
         }`}
       >
         <a href="#top" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-md bg-gradient-to-br from-neon-blue to-neon-cyan flex items-center justify-center shadow-[0_0_20px_oklch(0.72_0.2_240/0.4)]">
-            <Terminal className="w-4 h-4 text-background" strokeWidth={2.5} />
+          <div className="w-[60px] h-[60px] flex items-center justify-center relative">
+            <img 
+              src="/logo.png" 
+              alt="Master Agent Logo" 
+              className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,216,255,0.4)] group-hover:scale-105 transition-transform duration-300" 
+              draggable={false}
+            />
           </div>
           <div className="flex flex-col leading-none">
             <span className="text-sm font-semibold tracking-wide">MASTER AGENT</span>
