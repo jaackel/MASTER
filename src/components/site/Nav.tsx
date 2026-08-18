@@ -36,9 +36,12 @@ export function Nav() {
             />
           </div>
           <div className="flex flex-col leading-none">
-            <span className="text-sm font-semibold tracking-wide">MASTER AGENT</span>
-            <span className="text-[10px] font-mono text-muted-foreground tracking-[0.2em]">
-              // SECURE HUB
+            <span className="text-[15px] font-title tracking-wide">
+              <span className="text-white font-bold">MASTER</span>
+              <span className={`font-extrabold transition-colors duration-500 ${scrolled ? "text-white" : "text-[#00c8ff]"}`}>AGENT</span>
+            </span>
+            <span className="text-[8px] font-mono text-muted-foreground tracking-[0.15em] mt-0.5">
+              // SERVICE PROVIDER HUB
             </span>
           </div>
         </a>
@@ -58,7 +61,7 @@ export function Nav() {
 
         <div className="flex items-center gap-3">
           <a
-            href="#contato"
+            href="#conectar"
             className="hidden sm:inline-flex items-center gap-2 h-9 px-4 rounded-md text-xs font-medium tracking-wide border border-neon-blue/40 text-neon-cyan hover:bg-neon-blue/10 hover:shadow-[0_0_20px_oklch(0.72_0.2_240/0.3)] transition-all"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />

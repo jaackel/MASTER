@@ -35,7 +35,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 bg-tech-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+      <div className="absolute inset-0 bg-tech-grid opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_85%)]" />
 
       {/* Interactive Antigravity background */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -47,7 +47,7 @@ export function Hero() {
           waveAmplitude={0.1}
           particleSize={0.6}
           lerpSpeed={0.01}
-          color="#0064ff"
+          color="#00c8ff"
           autoAnimate
           particleVariance={0.2}
           rotationSpeed={0}

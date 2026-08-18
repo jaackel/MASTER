@@ -176,8 +176,12 @@ const AntigravityInner = ({
 
       dummy.position.set(particle.cx, particle.cy, particle.cz);
 
-      dummy.lookAt(projectedTargetX, projectedTargetY, particle.cz);
-      dummy.rotateX(Math.PI / 2);
+      // Fixed isometric perspective tilt matching the tech grid
+      dummy.rotation.set(
+        Math.PI / 3, // tilt down
+        0,
+        Math.PI / 6  // align flat-topped hexagon edges
+      );
 
       const currentDistToMouse = Math.sqrt(
         Math.pow(particle.cx - projectedTargetX, 2) + Math.pow(particle.cy - projectedTargetY, 2)
@@ -201,10 +205,7 @@ const AntigravityInner = ({
 
   return (
     <instancedMesh ref={meshRef} args={[null as any, null as any, count]}>
-      {particleShape === 'capsule' && <capsuleGeometry args={[0.1, 0.4, 4, 8]} />}
-      {particleShape === 'sphere' && <sphereGeometry args={[0.2, 16, 16]} />}
-      {particleShape === 'box' && <boxGeometry args={[0.3, 0.3, 0.3]} />}
-      {particleShape === 'tetrahedron' && <tetrahedronGeometry args={[0.3]} />}
+      <cylinderGeometry args={[0.22, 0.22, 0.04, 6]} />
       <meshBasicMaterial color={color} />
     </instancedMesh>
   );
