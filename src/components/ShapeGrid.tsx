@@ -40,8 +40,8 @@ const ShapeGrid = ({
 
     const isHex = shape === "hexagon";
     const isTri = shape === "triangle";
-    const hexHoriz = squareSize * 1.5;
-    const hexVert = squareSize * Math.sqrt(3);
+    const hexHoriz = squareSize * Math.sqrt(3);
+    const hexVert = squareSize * 1.5;
 
     const resizeCanvas = () => {
       canvas.width = canvas.offsetWidth;
@@ -54,7 +54,7 @@ const ShapeGrid = ({
     const drawHex = (cx: number, cy: number, size: number) => {
       ctx.beginPath();
       for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 3) * i;
+        const angle = (Math.PI / 3) * i + Math.PI / 6; // Pointy top rotation (30 degrees)
         const vx = cx + size * Math.cos(angle);
         const vy = cy + size * Math.sin(angle);
         if (i === 0) ctx.moveTo(vx, vy);
@@ -87,7 +87,7 @@ const ShapeGrid = ({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (isHex) {
-        const colShift = Math.floor(gridOffset.current.x / hexHoriz);
+        const rowShift = Math.floor(gridOffset.current.y / hexVert);
         const offsetX = ((gridOffset.current.x % hexHoriz) + hexHoriz) % hexHoriz;
         const offsetY = ((gridOffset.current.y % hexVert) + hexVert) % hexVert;
 
@@ -96,8 +96,8 @@ const ShapeGrid = ({
 
         for (let col = -2; col < cols; col++) {
           for (let row = -2; row < rows; row++) {
-            const cx = col * hexHoriz + offsetX;
-            const cy = row * hexVert + ((col + colShift) % 2 !== 0 ? hexVert / 2 : 0) + offsetY;
+            const cx = col * hexHoriz + ((row + rowShift) % 2 !== 0 ? hexHoriz / 2 : 0) + offsetX;
+            const cy = row * hexVert + offsetY;
 
             const cellKey = `${col},${row}`;
             const alpha = cellOpacities.current.get(cellKey);
@@ -283,19 +283,32 @@ const ShapeGrid = ({
       const mouseX = event.clientX - rect.left;
       const mouseY = event.clientY - rect.top;
 
+      console.log("[ShapeGrid Debug] mouseX:", mouseX, "mouseY:", mouseY, "rect width/height:", rect.width, rect.height, "rect top/left:", rect.top, rect.left);
+
+      // Check if mouse is outside the canvas bounds
+      if (mouseX < 0 || mouseX > rect.width || mouseY < 0 || mouseY > rect.height) {
+        if (hoveredSquare.current && hoverTrailAmount > 0) {
+          trailCells.current.unshift({ ...hoveredSquare.current });
+          if (trailCells.current.length > hoverTrailAmount)
+            trailCells.current.length = hoverTrailAmount;
+        }
+        hoveredSquare.current = null;
+        return;
+      }
+
       let col: number;
       let row: number;
 
       if (isHex) {
-        const colShift = Math.floor(gridOffset.current.x / hexHoriz);
+        const rowShift = Math.floor(gridOffset.current.y / hexVert);
         const offsetX = ((gridOffset.current.x % hexHoriz) + hexHoriz) % hexHoriz;
         const offsetY = ((gridOffset.current.y % hexVert) + hexVert) % hexVert;
         const adjustedX = mouseX - offsetX;
         const adjustedY = mouseY - offsetY;
 
-        col = Math.round(adjustedX / hexHoriz);
-        const rowOffset = (col + colShift) % 2 !== 0 ? hexVert / 2 : 0;
-        row = Math.round((adjustedY - rowOffset) / hexVert);
+        row = Math.round(adjustedY / hexVert);
+        const colOffset = (row + rowShift) % 2 !== 0 ? hexHoriz / 2 : 0;
+        col = Math.round((adjustedX - colOffset) / hexHoriz);
       } else if (isTri) {
         const halfW = squareSize / 2;
         const offsetX = ((gridOffset.current.x % halfW) + halfW) % halfW;
@@ -349,8 +362,8 @@ const ShapeGrid = ({
       hoveredSquare.current = null;
     };
 
-    canvas.addEventListener("mousemove", handleMouseMove);
-    canvas.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     let isVisible = false;
     let isPageVisible = !document.hidden;
@@ -391,8 +404,8 @@ const ShapeGrid = ({
       tryStop();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [direction, speed, borderColor, hoverFillColor, squareSize, shape, hoverTrailAmount]);
 

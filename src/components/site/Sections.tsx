@@ -52,7 +52,6 @@ export function About() {
   ];
   return (
     <section id="sobre" className="relative py-32">
-      <div className="absolute inset-0 bg-tech-grid opacity-20 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>
@@ -107,96 +106,91 @@ export function About() {
 }
 
 /* ─────────── SERVICES ─────────── */
-const centerNode = { id: "matriz-master", labelLines: ["Matriz", "Master Agent"] };
-
-const hubNodes = [
-  { id: "svc-cloud", labelLines: ["Infraestrutura", "& Cloud"] },
-  { id: "svc-cyber", labelLines: ["Cyber", "Security"] },
-  { id: "svc-soc", labelLines: ["SOC as a", "Service"] },
-  { id: "svc-ia", labelLines: ["Inteligência", "Artificial"] },
-  { id: "svc-dev", labelLines: ["Desenvolvimento", "de Software"] },
-  { id: "svc-dados", labelLines: ["Dados &", "Automação"] },
-  { id: "svc-ti", labelLines: ["Serviços", "recorrentes", "de TI"] },
-  { id: "svc-projetos", labelLines: ["Projetos", "técnicos", "especializados"] },
-];
-
-// Desktop/tablet: a true honeycomb — centerNode touched by a ring of 6 services,
-// plus the remaining 2 services nested into the outer corners as a second ring,
-// so every cell interlocks with its neighbors (units are multiples of colGap / rowGap).
-const RING1_OFFSETS = [
-  { dcx: 1, dcy: 0 }, // right
-  { dcx: 0.5, dcy: -1 }, // upper-right
-  { dcx: -0.5, dcy: -1 }, // upper-left
-  { dcx: -1, dcy: 0 }, // left
-  { dcx: -0.5, dcy: 1 }, // lower-left
-  { dcx: 0.5, dcy: 1 }, // lower-right
-];
-const RING2_OFFSETS = [
-  { dcx: 1.5, dcy: 1 }, // lower-right, nested between "right" & "lower-right"
-  { dcx: -1.5, dcy: -1 }, // upper-left, nested between "left" & "upper-left"
+const servicesData = [
+  {
+    id: "SVC.01",
+    title: "GitOps",
+    desc: "Infraestrutura como código, versionamento declarativo de ambientes e automação contínua de deploys.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <circle cx="18" cy="18" r="3" />
+        <circle cx="6" cy="6" r="3" />
+        <circle cx="6" cy="18" r="3" />
+        <path d="M18 15V9a4 4 0 0 0-4-4H9" />
+        <path d="M6 9v6" />
+      </svg>
+    )
+  },
+  {
+    id: "SVC.02",
+    title: "DevSecOps",
+    desc: "Segurança integrada no ciclo de vida de desenvolvimento, compliance de código automatizado e hardening.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    )
+  },
+  {
+    id: "SVC.03",
+    title: "CloudOps",
+    desc: "Orquestração multi-cloud, sustentação de infraestruturas híbridas, alta disponibilidade e monitoramento.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+      </svg>
+    )
+  },
+  {
+    id: "SVC.04",
+    title: "FinOps",
+    desc: "Gestão financeira de ambientes cloud, análise de desperdícios, alocação de custos e otimização sob demanda.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <line x1="12" x2="12" y1="2" y2="22" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+    )
+  },
+  {
+    id: "SVC.05",
+    title: "DataOps",
+    desc: "Engenharia de dados escalável, pipelines ETL robustos, governança analítica e automação de fluxos de dados.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+        <path d="M3 12A9 3 0 0 0 21 12" />
+      </svg>
+    )
+  },
+  {
+    id: "SVC.06",
+    title: "ML / AIOps",
+    desc: "Operacionalização de modelos de Machine Learning, provisionamento de LLMs corporativos e automação cognitiva.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <path d="M12 20v2" />
+        <path d="M12 2v2" />
+        <path d="M17 20v2" />
+        <path d="M17 2v2" />
+        <path d="M2 12h2" />
+        <path d="M2 17h2" />
+        <path d="M2 7h2" />
+        <path d="M20 12h2" />
+        <path d="M20 17h2" />
+        <path d="M20 7h2" />
+        <path d="M7 20v2" />
+        <path d="M7 2v2" />
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <rect x="8" y="8" width="8" height="8" rx="1" />
+      </svg>
+    )
+  }
 ];
 
 function JourneyCarousel() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Pointy-top hexagon geometry: R = center-to-vertex radius.
-  const R = isMobile ? 72 : 100;
-  const hexW = (Math.sqrt(3) / 2) * R; // half-width
-  const colGap = hexW * 2; // horizontal distance between hex centers in the same row
-  const rowGap = R * 1.5; // vertical distance between row centers
-
-  const positions = isMobile
-    ? [centerNode, ...hubNodes].map((node, i) => ({
-        ...node,
-        cx: 0,
-        cy: i * (2 * R + 18),
-        isCenter: node.id === centerNode.id,
-      }))
-    : [
-        { ...centerNode, cx: 0, cy: 0, isCenter: true },
-        ...RING1_OFFSETS.map((offset, i) => ({
-          ...hubNodes[i],
-          cx: offset.dcx * colGap,
-          cy: offset.dcy * rowGap,
-          isCenter: false,
-        })),
-        ...RING2_OFFSETS.map((offset, i) => ({
-          ...hubNodes[6 + i],
-          cx: offset.dcx * colGap,
-          cy: offset.dcy * rowGap,
-          isCenter: false,
-        })),
-      ];
-
-  const cxs = positions.map((p) => p.cx);
-  const cys = positions.map((p) => p.cy);
-  const PADDING = 24;
-  const STAGE_W = Math.max(...cxs) - Math.min(...cxs) + hexW * 2 + PADDING * 2;
-  const STAGE_H = Math.max(...cys) - Math.min(...cys) + R * 2 + PADDING * 2;
-  const originX = PADDING + hexW - Math.min(...cxs);
-  const originY = PADDING + R - Math.min(...cys);
-
-  const updateScale = useCallback(() => {
-    if (!wrapRef.current) return;
-    setScale(Math.min(1, wrapRef.current.clientWidth / STAGE_W));
-  }, [STAGE_W]);
-
-  useEffect(() => {
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, [updateScale]);
-
   return (
     <div className="py-24 w-full bg-transparent">
       <div className="max-w-7xl mx-auto px-6 mb-16">
@@ -208,113 +202,44 @@ function JourneyCarousel() {
         </div>
       </div>
 
-      {/* Stage Wrapper */}
-      <div ref={wrapRef} className="w-full overflow-hidden flex justify-center py-10">
-        <div
-          style={{
-            width: STAGE_W,
-            height: STAGE_H,
-            transform: `scale(${scale})`,
-            transformOrigin: "top center",
-            marginBottom: STAGE_H * scale - STAGE_H,
-            position: "relative",
-            flexShrink: 0,
-          }}
-        >
-          {/* Grid Background */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-            <img
-              src="/journey/grid-background.svg"
-              alt=""
-              className="w-full h-full object-contain"
-              draggable={false}
-            />
-          </div>
-
-          {/* Isometric Hexagon Cluster (pointy-top, interlocking rows) */}
-          <svg width={STAGE_W} height={STAGE_H} className="absolute inset-0 overflow-visible">
-            <defs>
-              <radialGradient id="jc-cellGrad" cx="50%" cy="35%" r="75%">
-                <stop offset="0%" stopColor="#0e2a3a" stopOpacity="0.85" />
-                <stop offset="100%" stopColor="#040f16" stopOpacity="0.92" />
-              </radialGradient>
-              <radialGradient id="jc-centerCellGrad" cx="50%" cy="35%" r="75%">
-                <stop offset="0%" stopColor="#0b3f5c" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#062338" stopOpacity="0.97" />
-              </radialGradient>
-              <filter id="jc-glow" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="4" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            {positions.map((node) => {
-              const cx = originX + node.cx;
-              const cy = originY + node.cy;
-              const isHovered = hoveredId === node.id;
-
-              const points = [
-                [cx, cy - R],
-                [cx + hexW, cy - R / 2],
-                [cx + hexW, cy + R / 2],
-                [cx, cy + R],
-                [cx - hexW, cy + R / 2],
-                [cx - hexW, cy - R / 2],
-              ]
-                .map(([x, y]) => `${x},${y}`)
-                .join(" ");
-
-              return (
-                <g
-                  key={node.id}
-                  className="cursor-pointer transition-all duration-300"
-                  onMouseEnter={() => setHoveredId(node.id)}
-                  onMouseLeave={() => setHoveredId(null)}
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {servicesData.map((svc) => (
+            <div
+              key={svc.id}
+              className="group relative glass-panel rounded-lg p-6 hover:border-neon-cyan/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_oklch(0.72_0.2_240/0.2)] animate-fade-up"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-10 h-10 rounded-md border border-border/60 bg-surface/60 flex items-center justify-center group-hover:border-neon-cyan/60 group-hover:text-neon-cyan transition-colors">
+                  {svc.icon}
+                </div>
+                <span className="text-[10px] font-mono tracking-wider text-muted-foreground">
+                  {svc.id}
+                </span>
+              </div>
+              <h3 className="text-base font-medium leading-tight mb-2">{svc.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{svc.desc}</p>
+              <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between text-[10px] font-mono">
+                <span className="text-neon-cyan/70">● ONLINE</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-3.5 h-3.5 text-muted-foreground group-hover:text-neon-cyan group-hover:translate-x-1 transition-all"
+                  aria-hidden="true"
                 >
-                  <polygon
-                    points={points}
-                    fill={node.isCenter ? "url(#jc-centerCellGrad)" : "url(#jc-cellGrad)"}
-                  />
-                  <polygon
-                    points={points}
-                    fill="none"
-                    stroke="var(--neon-cyan)"
-                    strokeWidth={node.isCenter ? 2.5 : isHovered ? 2 : 1.5}
-                    opacity={node.isCenter ? 1 : isHovered ? 1 : 0.7}
-                    filter="url(#jc-glow)"
-                    className="transition-all duration-300"
-                  />
-
-                  {/* Label */}
-                  <g className="pointer-events-none select-none">
-                    {node.labelLines.map((text, idx) => {
-                      const totalLines = node.labelLines.length;
-                      const yOffset = (idx - (totalLines - 1) / 2) * 16;
-                      return (
-                        <text
-                          key={idx}
-                          x={cx}
-                          y={cy + yOffset + 4}
-                          textAnchor="middle"
-                          className={
-                            node.isCenter
-                              ? "font-sans font-extrabold text-[14px] fill-white tracking-wide"
-                              : "font-sans font-semibold text-[12px] fill-white"
-                          }
-                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.6)" }}
-                        >
-                          {text}
-                        </text>
-                      );
-                    })}
-                  </g>
-                </g>
-              );
-            })}
-          </svg>
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -324,33 +249,8 @@ function JourneyCarousel() {
 export function Services() {
   return (
     <section id="servicos" className="relative isolate pt-12">
-      {/* Animated hexagon grid background */}
-      <div className="absolute inset-0 -z-10 opacity-40 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-        <ShapeGrid
-          speed={0.5}
-          squareSize={40}
-          direction="diagonal"
-          borderColor="rgba(0,100,255,0.35)"
-          hoverFillColor="rgba(0,216,255,0.5)"
-          shape="hexagon"
-          hoverTrailAmount={17}
-        />
-      </div>
-
       {/* Full-width journey carousel rendered first */}
       <JourneyCarousel />
-
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-20">
-        <SectionHeader
-          eyebrow="// ARQUITETURA DE SOLUÇÕES"
-          title={
-            <>
-              Serviços da <span className="text-gradient-neon">central</span>
-            </>
-          }
-          desc="Cada módulo é um vetor de execução — ativado sob demanda por agentes verificados na sua stack e no seu contexto."
-        />
-      </div>
     </section>
   );
 }
@@ -390,7 +290,6 @@ const missions = [
 export function Operation() {
   return (
     <section id="operacao" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-tech-grid opacity-25" />
       <div className="relative max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// OPERAÇÃO"
@@ -528,9 +427,6 @@ export function Soc() {
 
   return (
     <section id="soc" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-neon-blue/[0.04] via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-tech-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
-
       <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
         <div>
           <SectionHeader
@@ -573,7 +469,7 @@ export function Soc() {
           </div>
           
           {/* Image Container with Zoom effect */}
-          <div className="relative overflow-hidden aspect-[16/10] w-full">
+          <div className="relative overflow-hidden aspect-square w-full">
             <img
               src="/soc-room.jpg"
               alt="SOC Security Control Room"
@@ -596,9 +492,6 @@ export function Soc() {
 export function Contact() {
   return (
     <section id="contato" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-hero opacity-80" />
-      <div className="absolute inset-0 bg-tech-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
-
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-xs font-mono text-neon-cyan mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />

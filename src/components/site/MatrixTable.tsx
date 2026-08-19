@@ -80,7 +80,7 @@ export default function MatrixTable() {
       </div>
 
       {/* Desktop/tablet layout: full grid matrix */}
-      <div className="hidden md:block w-full overflow-x-auto scrollbar-thin pb-4">
+      <div className="hidden md:block w-full overflow-x-auto scrollbar-thin pt-4 pb-4">
         <div className="min-w-[900px] max-w-5xl mx-auto px-4 grid grid-cols-[240px_repeat(6,1fr)] gap-y-3 gap-x-3 relative">
           
           {/* Top Left Header Cell (Spacer) */}
@@ -97,12 +97,12 @@ export default function MatrixTable() {
                   setActiveCol(col.id);
                   setActiveRow(null); // Focus column, clear row focus
                 }}
-                className={`h-14 rounded-lg flex items-center justify-center font-sans font-bold text-sm tracking-wide transition-all duration-300 border cursor-pointer select-none
+                className={`h-14 rounded-lg flex items-center justify-center font-sans font-bold text-sm tracking-wide transition-all duration-300 border cursor-pointer select-none relative
                   ${col.isSilver 
                     ? "bg-gradient-to-br from-[#374151] to-[#4b5563] border-white/20 text-white" 
                     : `bg-gradient-to-br ${col.gradient} border-neon-cyan/20 text-white`
                   }
-                  ${isSelected ? "ring-2 ring-neon-cyan shadow-[0_0_20px_rgba(0,216,255,0.4)] scale-105" : "opacity-80 hover:opacity-100 hover:scale-102"}
+                  ${isSelected ? "ring-2 ring-neon-cyan shadow-[0_0_20px_rgba(0,216,255,0.4)] scale-105 z-10" : "opacity-80 hover:opacity-100 hover:scale-102 z-0"}
                 `}
               >
                 {col.label}

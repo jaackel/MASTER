@@ -35,7 +35,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 bg-tech-grid opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_85%)]" />
+      <div className="absolute inset-0 bg-tech-grid opacity-[0.85] [mask-image:linear-gradient(to_bottom,black_30%,transparent_85%)]" />
 
       {/* Interactive Antigravity background */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -176,7 +176,7 @@ export function Hero() {
         </div>
 
         {/* Futuristic Illustration column */}
-        <div className="relative flex items-center justify-center animate-fade-up" style={{ animationDelay: "0.3s" }}>
+        <div className="hidden lg:flex relative items-center justify-center animate-fade-up" style={{ animationDelay: "0.3s" }}>
           <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-square flex items-center justify-center animate-float">
             {/* Soft backdrop glow behind illustration */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" />
