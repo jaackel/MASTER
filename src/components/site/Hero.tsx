@@ -35,7 +35,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 bg-tech-grid opacity-[0.85] [mask-image:linear-gradient(to_bottom,black_30%,transparent_85%)]" />
+      <div className="absolute inset-0 bg-tech-grid opacity-[0.55] [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_75%)]" />
 
       {/* Interactive Antigravity background */}
       <div className="absolute inset-0 pointer-events-none z-0">

@@ -112,7 +112,7 @@ function Index() {
         <div className="relative isolate">
           <div className="absolute inset-0 -z-10 opacity-40 [mask-image:linear-gradient(to_bottom,transparent,black_3%,black_97%,transparent)]">
             <ShapeGrid
-              speed={0.5}
+              speed={0}
               squareSize={40}
               direction="diagonal"
               borderColor="rgba(0,100,255,0.35)"

@@ -24,13 +24,15 @@ function SectionHeader({
   eyebrow,
   title,
   desc,
+  mb = "mb-16",
 }: {
   eyebrow: string;
   title: React.ReactNode;
   desc?: string;
+  mb?: string;
 }) {
   return (
-    <div className="max-w-2xl mb-16">
+    <div className={`max-w-2xl ${mb}`}>
       <div className="inline-flex items-center gap-2 mb-4 text-xs font-mono tracking-[0.25em] text-neon-cyan">
         <span className="w-8 h-px bg-neon-cyan" />
         {eyebrow}
@@ -51,7 +53,7 @@ export function About() {
     { icon: Layers, label: "Escala", value: "Sob demanda" },
   ];
   return (
-    <section id="sobre" className="relative py-32">
+    <section id="sobre" className="relative scroll-mt-24 py-32">
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>
@@ -192,14 +194,17 @@ const servicesData = [
 
 function JourneyCarousel() {
   return (
-    <div className="py-24 w-full bg-transparent">
-      <div className="max-w-7xl mx-auto px-6 mb-16">
-        <div className="max-w-2xl animate-fade-up">
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Uma arquitetura resiliente. Protegemos cada fluxo de dados e ponta de infraestrutura. Do
-            processamento na nuvem à IA, a segurança interliga todo o seu ecossistema técnico.
-          </p>
-        </div>
+    <div className="pt-24 pb-0 w-full bg-transparent">
+      <div className="max-w-7xl mx-auto px-6 mb-16 animate-fade-up">
+        <SectionHeader
+          eyebrow="// SOLUÇÕES"
+          title={
+            <>
+              Serviços da <span className="text-gradient-neon">central</span>
+            </>
+          }
+          desc="Uma arquitetura resiliente. Protegemos cada fluxo de dados e ponta de infraestrutura. Do processamento na nuvem à IA, a segurança interliga todo o seu ecossistema técnico."
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
@@ -248,7 +253,7 @@ function JourneyCarousel() {
 
 export function Services() {
   return (
-    <section id="servicos" className="relative isolate pt-12">
+    <section id="servicos" className="relative isolate scroll-mt-24 pt-12">
       {/* Full-width journey carousel rendered first */}
       <JourneyCarousel />
     </section>
@@ -289,7 +294,7 @@ const missions = [
 
 export function Operation() {
   return (
-    <section id="operacao" className="relative py-32 overflow-hidden">
+    <section id="operacao" className="relative scroll-mt-24 pt-0 pb-32">
       <div className="relative max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// OPERAÇÃO"
@@ -298,11 +303,16 @@ export function Operation() {
               Matriz de <span className="text-gradient-neon">Interoperabilidade</span>
             </>
           }
-          desc="Nível de entrega e sustentação de processos em diferentes níveis de maturidade operacional."
+          mb="mb-0"
         />
+      </div>
 
+      {/* Full-width Matrix Panel Container */}
+      <div className="w-full px-4 md:px-8 mt-6">
         <MatrixTable />
+      </div>
 
+      <div className="relative max-w-7xl mx-auto px-6">
         {/* 4-phase cards methodology at the end */}
         <div className="mt-28 border-t border-neon-cyan/10 pt-20">
           <SectionHeader
@@ -377,7 +387,7 @@ export function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="relative py-32">
+    <section id="portfolio" className="relative scroll-mt-24 py-32">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// OPERAÇÕES REALIZADAS"
@@ -426,8 +436,8 @@ export function Soc() {
   ];
 
   return (
-    <section id="soc" className="relative py-32 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
+    <section id="soc" className="relative scroll-mt-24 py-32">
+      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1fr] gap-12 items-center">
         <div>
           <SectionHeader
             eyebrow="// SOC AS A SERVICE — OPERAÇÃO 24/7"
@@ -469,7 +479,7 @@ export function Soc() {
           </div>
           
           {/* Image Container with Zoom effect */}
-          <div className="relative overflow-hidden aspect-square w-full">
+          <div className="relative overflow-hidden aspect-[4/3] w-full">
             <img
               src="/soc-room.jpg"
               alt="SOC Security Control Room"
@@ -491,7 +501,7 @@ export function Soc() {
 /* ─────────── CONTACT ─────────── */
 export function Contact() {
   return (
-    <section id="contato" className="relative py-32 overflow-hidden">
+    <section id="contato" className="relative scroll-mt-24 py-32">
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-xs font-mono text-neon-cyan mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />

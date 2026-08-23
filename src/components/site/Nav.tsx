@@ -31,14 +31,24 @@ export function Nav() {
             <img 
               src="/logo.png" 
               alt="Master Agent Logo" 
-              className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,216,255,0.4)] group-hover:scale-105 transition-transform duration-300" 
+              className={`absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,216,255,0.4)] group-hover:scale-105 transition-all duration-500 ${
+                scrolled ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+              }`} 
+              draggable={false}
+            />
+            <img 
+              src="/logo-blue.png" 
+              alt="Master Agent Logo Blue" 
+              className={`absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,216,255,0.4)] group-hover:scale-105 transition-all duration-500 ${
+                scrolled ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
+              }`} 
               draggable={false}
             />
           </div>
           <div className="flex flex-col leading-none">
             <span className="text-[15px] font-title tracking-wide">
               <span className="text-white font-bold">MASTER</span>
-              <span className={`font-extrabold transition-colors duration-500 ${scrolled ? "text-white" : "text-[#00c8ff]"}`}>AGENT</span>
+              <span className={`font-extrabold transition-colors duration-500 ${scrolled ? "text-white" : "text-[#00c8ff]"}`}>AGENT_</span>
             </span>
             <span className="text-[8px] font-mono text-muted-foreground tracking-[0.15em] mt-0.5">
               // SERVICE PROVIDER HUB
@@ -51,7 +61,9 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
+              className={`text-sm font-medium transition-colors duration-500 relative group ${
+                scrolled ? "text-white hover:text-[#00c8ff]" : "text-[#00c8ff] hover:text-white"
+              }`}
             >
               {l.label}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-neon-cyan group-hover:w-full transition-all duration-300" />

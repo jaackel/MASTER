@@ -37,16 +37,41 @@ export default function MatrixTable() {
   ];
 
   return (
-    <div className="w-full py-8">
+    <div className="w-full bg-[#03131c]/25 border border-neon-cyan/15 rounded-xl p-6 md:p-8 backdrop-blur-sm relative overflow-hidden mt-2 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
       {/* Title block */}
-      <div className="text-center mb-8">
-        <h4 className="text-lg font-mono font-bold tracking-wider text-neon-cyan uppercase">
-          Matriz de Interoperabilidade
-        </h4>
+      <div className="mb-2 flex items-center justify-between">
+        <div>
+          <span className="text-[10px] font-mono tracking-widest text-neon-cyan block mb-1">
+            ▸ MATRIZ DE SERVIÇOS
+          </span>
+          <h4 className="text-xl font-title font-bold text-white">
+            Níveis de Sustentação Operacional
+          </h4>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground bg-neon-cyan/5 px-3 py-1.5 rounded border border-neon-cyan/20">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-info w-3.5 h-3.5 text-neon-cyan"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4" />
+            <path d="M12 8h.01" />
+          </svg>
+          <span>Passe o mouse para cruzar dados</span>
+        </div>
       </div>
 
       {/* Mobile layout: stacked cards, no horizontal scroll needed */}
-      <div className="md:hidden max-w-md mx-auto px-4 space-y-3">
+      <div className="md:hidden max-w-md mx-auto space-y-3">
         {rows.map((row, rowIdx) => (
           <div
             key={rowIdx}
@@ -80,12 +105,12 @@ export default function MatrixTable() {
       </div>
 
       {/* Desktop/tablet layout: full grid matrix */}
-      <div className="hidden md:block w-full overflow-x-auto scrollbar-thin pt-4 pb-4">
-        <div className="min-w-[900px] max-w-5xl mx-auto px-4 grid grid-cols-[240px_repeat(6,1fr)] gap-y-3 gap-x-3 relative">
+      <div className="hidden md:block w-full overflow-x-auto scrollbar-thin pt-0 pb-4 px-4">
+        <div className="min-w-[900px] max-w-5xl mx-auto grid grid-cols-[240px_repeat(6,1fr)] gap-y-3 gap-x-3 relative p-2">
           
           {/* Top Left Header Cell (Spacer) */}
           <div className="h-14" />
-
+ 
           {/* Column Headers */}
           {cols.map((col) => {
             const isSelected = activeCol === col.id;
@@ -109,11 +134,11 @@ export default function MatrixTable() {
               </div>
             );
           })}
-
+ 
           {/* Table Body Rows */}
           {rows.map((row, rowIdx) => {
             const isRowActive = activeRow === rowIdx;
-
+ 
             return (
               <div key={rowIdx} className="contents">
                 
@@ -137,7 +162,7 @@ export default function MatrixTable() {
                     {row.subtitle}
                   </span>
                 </div>
-
+ 
                 {/* Data Cells */}
                 {cols.map((col) => {
                   const isColSelected = activeCol === col.id;
@@ -167,12 +192,12 @@ export default function MatrixTable() {
                       {isColSelected && (
                         <div className="absolute inset-x-0 -top-2 -bottom-2 border-x border-neon-cyan/20 bg-neon-blue/5 pointer-events-none -z-10 animate-fade-in" />
                       )}
-
+ 
                       {/* Horizontal Highlight Overlay Row effect */}
                       {isRowSelected && (
                         <div className="absolute -left-2 -right-2 inset-y-0 border-y border-neon-cyan/20 bg-neon-blue/5 pointer-events-none -z-10 animate-fade-in" />
                       )}
-
+ 
                       {/* Glowing Checkmark */}
                       <div 
                         className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300
@@ -196,11 +221,11 @@ export default function MatrixTable() {
                     </div>
                   );
                 })}
-
+ 
               </div>
             );
           })}
-
+ 
         </div>
       </div>
     </div>

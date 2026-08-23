@@ -248,7 +248,7 @@ const ShapeGrid = ({
     };
 
     const updateAnimation = () => {
-      const effectiveSpeed = Math.max(speed, 0.1);
+      const effectiveSpeed = speed;
       const wrapX = isHex ? hexHoriz * 2 : squareSize;
       const wrapY = isHex ? hexVert : isTri ? squareSize * 2 : squareSize;
 
