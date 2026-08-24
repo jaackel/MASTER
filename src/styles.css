@@ -308,129 +308,31 @@
   transform: translateY(-8px);
 }
 
-/* ─── Buraco Negro ────────────────────────────────────────────────
-   Gargantua: disco de acreção com lente gravitacional. O disco não é
-   só a faixa horizontal — ele é curvado por cima E por baixo, fechando
-   um anel elíptico em volta da esfera. Equador ancorado na curva da
-   linha do tempo (62.5% do card); os cards ficam dentro do anel.     */
+/* ─── Singularidade ────────────────────────────────────────────────
+   O disco (fita + arcos lenteados + sombra + anel de fotons) e SVG,
+   em Singularidade.tsx. Aqui ficam so o palco, as estrelas e as orbitas.
+   Equador ancorado em 62.5% do card = a curva da linha do tempo.    */
 
-.bh-stage {
+.sg-stage {
   position: absolute;
   left: 50%;
   top: 62.5%;
-  width: 1240px;
-  height: 620px;
+  width: 1120px;
+  height: 520px;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
-.bh-stage > * {
+.sg-svg {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-}
-
-/* ── Anel lenteado externo: passa por cima e por baixo ── */
-.bh-lens {
-  width: 1140px;
-  height: 440px;
-  background: radial-gradient(
-    ellipse farthest-side at 50% 50%,
-    transparent 0%,
-    transparent 82%,
-    rgba(0, 130, 235, 0.07) 86%,
-    rgba(0, 180, 255, 0.16) 90%,
-    rgba(170, 228, 255, 0.30) 93.5%,
-    rgba(255, 255, 255, 0.26) 96%,
-    rgba(90, 195, 255, 0.10) 98%,
-    transparent 100%
-  );
-  filter: blur(4px);
-}
-
-/* ── Anel lenteado interno: mais quente, mais perto do horizonte ── */
-.bh-lens-inner {
-  width: 856px;
-  height: 330px;
-  background: radial-gradient(
-    ellipse farthest-side at 50% 50%,
-    transparent 0%,
-    transparent 84%,
-    rgba(0, 170, 255, 0.14) 88%,
-    rgba(165, 228, 255, 0.42) 92.5%,
-    rgba(255, 255, 255, 0.55) 95.5%,
-    rgba(120, 210, 255, 0.20) 98%,
-    transparent 100%
-  );
-  filter: blur(3px);
-}
-
-/* ── Esfera: o horizonte de eventos ── */
-.bh-sphere {
-  width: 286px;
-  height: 286px;
-  margin-top: -8px;
-  background: radial-gradient(
-    circle at 50% 50%,
-    #01030a 0%,
-    #01030a 78%,
-    rgba(1, 3, 10, 0.92) 90%,
-    rgba(1, 3, 10, 0.55) 97%,
-    transparent 100%
-  );
-  box-shadow: 0 0 60px 26px rgba(1, 3, 10, 0.88);
-}
-
-/* ── Anel de fótons: linha fina colada na esfera ── */
-.bh-photon {
-  width: 310px;
-  height: 310px;
-  margin-top: -8px;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 0%,
-    transparent 88%,
-    rgba(190, 235, 255, 0.85) 91.5%,
-    rgba(255, 255, 255, 0.95) 93.5%,
-    rgba(90, 200, 255, 0.5) 96%,
-    transparent 100%
-  );
-  filter: blur(1.5px);
-}
-
-/* ── Disco de perfil: a faixa que atravessa na frente ── */
-.bh-streak {
-  width: 178%;
-  height: 104px;
-  background: radial-gradient(
-    ellipse 50% 50% at 50% 50%,
-    rgba(190, 235, 255, 0.30) 0%,
-    rgba(0, 172, 255, 0.18) 18%,
-    rgba(0, 115, 235, 0.08) 38%,
-    rgba(0, 80, 200, 0.02) 60%,
-    transparent 78%
-  );
-  filter: blur(16px);
-}
-
-.bh-streak-hot {
-  width: 128%;
-  height: 30px;
-  background: radial-gradient(
-    ellipse 50% 50% at 50% 50%,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(205, 242, 255, 0.75) 13%,
-    rgba(0, 195, 255, 0.45) 31%,
-    rgba(0, 135, 245, 0.15) 54%,
-    transparent 74%
-  );
-  filter: blur(5px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
 /* ── Estrelas ── */
-.bh-stars {
+.sg-stars {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -441,36 +343,36 @@
   mask-image: radial-gradient(50% 50%, rgba(217,217,217,0) 27.08%, rgb(217,217,217) 47.92%, rgba(217,217,217,0.8) 75%, rgba(217,217,217,0) 100%);
   -webkit-mask-size: cover;
   mask-size: cover;
-  animation: bh-stars-rotate 70s linear infinite;
+  animation: sg-stars-rotate 70s linear infinite;
 }
 
-.bh-stars > div {
+.sg-stars > div {
   position: absolute;
   width: 2px;
   height: 2px;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0);
   transform: translateZ(0) translate(0) scale(1);
-  animation-name: bh-twinkle;
+  animation-name: sg-twinkle;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-.bh-stars > div:nth-child(3n) { opacity: 0.5; }
+.sg-stars > div:nth-child(3n) { opacity: 0.5; }
 
-@keyframes bh-stars-rotate {
+@keyframes sg-stars-rotate {
   0%   { transform: translateZ(0) translate(-50%, -50%) rotate(0deg); }
   100% { transform: translateZ(0) translate(-50%, -50%) rotate(-360deg); }
 }
 
-@keyframes bh-twinkle {
+@keyframes sg-twinkle {
   0%   { background: rgba(255,255,255,0); transform: translateZ(0) translate(0) scale(1); }
   10%  { background: rgb(214, 240, 255); }
   100% { background: rgb(214, 240, 255); transform: translateZ(0) var(--transform) scale(0.5); }
 }
 
 /* ── Anéis orbitais discretos ── */
-.bh-rings {
+.sg-rings {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -479,7 +381,7 @@
   transform: translateZ(0) translate(-50%, -50%);
 }
 
-.bh-rings > div {
+.sg-rings > div {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -490,21 +392,21 @@
   mask-image: linear-gradient(rgba(0,168,255,0.6) 9.41%, rgba(0,168,255,0) 29.79%);
 }
 
-.bh-rings > div:nth-child(2) { width: 491px; height: 491px; opacity: 0.6; }
-.bh-rings > div:nth-child(3) { width: 336px; height: 336px; z-index: 1; }
+.sg-rings > div:nth-child(2) { width: 491px; height: 491px; opacity: 0.6; }
+.sg-rings > div:nth-child(3) { width: 336px; height: 336px; z-index: 1; }
 
-.bh-ring {
+.sg-ring {
   position: relative;
   top: 4px;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  animation: bh-rings-rotate 100s linear infinite;
+  animation: sg-rings-rotate 100s linear infinite;
 }
 
-.bh-rings > div:nth-child(3) .bh-ring { animation: none; }
+.sg-rings > div:nth-child(3) .sg-ring { animation: none; }
 
-.bh-ring::before {
+.sg-ring::before {
   content: "";
   position: absolute;
   left: 0;
@@ -517,12 +419,12 @@
   pointer-events: none;
 }
 
-@keyframes bh-rings-rotate {
+@keyframes sg-rings-rotate {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-.bh-dot {
+.sg-dot {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -533,7 +435,7 @@
   transform: rotate(var(--a)) translateY(calc(var(--r) * -1));
 }
 
-.bh-dot::before {
+.sg-dot::before {
   content: "";
   display: block;
   position: absolute;
@@ -548,9 +450,9 @@
 }
 
 @media (max-width: 1248px) {
-  .bh-rings { display: none; }
+  .sg-rings { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bh-stars, .bh-stars > div, .bh-ring { animation: none; }
+  .sg-stars, .sg-stars > div, .sg-ring { animation: none; }
 }

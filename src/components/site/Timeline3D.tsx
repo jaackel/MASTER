@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { ShieldCheck, Info } from "lucide-react";
+import Singularidade from "./Singularidade";
 
 interface Milestone {
   year: string;
@@ -11,30 +12,8 @@ interface Milestone {
   z: number; // 3D Z coordinate
 }
 
-const STARFIELD_SIZE = 566; // ver bar.md
-const RING_RADII = [326, 245, 168];
-
 export default function Timeline3D() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
-  // Estrelas sugadas: cada uma nasce numa posição aleatória e translada
-  // exatamente até o centro do container.
-  const stars = useMemo(
-    () =>
-      Array.from({ length: 100 }, () => {
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        return {
-          left,
-          top,
-          duration: 7 + Math.random() * 7,
-          delay: Math.random() * 5,
-          tx: (0.5 - left / 100) * STARFIELD_SIZE,
-          ty: (0.5 - top / 100) * STARFIELD_SIZE,
-        };
-      }),
-    [],
-  );
 
   const milestones: Milestone[] = useMemo(() => [
     {
@@ -176,54 +155,7 @@ export default function Timeline3D() {
 
   return (
     <div className="w-full bg-[#03131c]/25 border border-neon-cyan/15 rounded-xl p-6 md:p-8 backdrop-blur-sm relative overflow-hidden mt-16 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
-      {/* Buraco negro — ver bar.md */}
-      <div className="absolute inset-0 overflow-hidden rounded-xl" aria-hidden="true">
-        <div className="bh-stage">
-          {/* atras: o disco curvado pela lente */}
-          <div className="bh-lens" />
-          <div className="bh-lens-inner" />
-          {/* a esfera oclui o meio do anel */}
-          <div className="bh-sphere" />
-          <div className="bh-photon" />
-          {/* na frente: o disco visto de perfil */}
-          <div className="bh-streak" />
-          <div className="bh-streak-hot" />
-
-          <div className="bh-stars">
-            {stars.map((s, i) => (
-              <div
-                key={i}
-                style={{
-                  top: `${s.top}%`,
-                  left: `${s.left}%`,
-                  animationDuration: `${s.duration}s`,
-                  animationDelay: `${s.delay}s`,
-                  ["--transform" as string]: `translate(${s.tx.toFixed(2)}px, ${s.ty.toFixed(2)}px)`,
-                }}
-              />
-            ))}
-          </div>
-
-          <div className="bh-rings">
-            {RING_RADII.map((r, ring) => (
-              <div key={ring}>
-                <div className="bh-ring">
-                  {Array.from({ length: 8 }, (_, dot) => (
-                    <div
-                      key={dot}
-                      className="bh-dot"
-                      style={{
-                        ["--a" as string]: `${dot * 45}deg`,
-                        ["--r" as string]: `${r}px`,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Singularidade />
 
       {/* Title */}
       <div className="relative z-10 mb-8 flex items-center justify-between">
