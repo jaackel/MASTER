@@ -13,6 +13,7 @@ interface ShapeGridProps {
   shape?: ShapeGridShape;
   hoverTrailAmount?: number;
   className?: string;
+  alignToDocument?: boolean;
 }
 
 const ShapeGrid = ({
@@ -24,10 +25,12 @@ const ShapeGrid = ({
   shape = "square",
   hoverTrailAmount = 0,
   className = "",
+  alignToDocument = false,
 }: ShapeGridProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number | null>(null);
   const gridOffset = useRef({ x: 0, y: 0 });
+  const globalOffset = useRef({ x: 0, y: 0 });
   const hoveredSquare = useRef<{ x: number; y: number } | null>(null);
   const trailCells = useRef<{ x: number; y: number }[]>([]);
   const cellOpacities = useRef(new Map<string, number>());
@@ -46,6 +49,13 @@ const ShapeGrid = ({
     const resizeCanvas = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
+      if (alignToDocument) {
+        const rect = canvas.getBoundingClientRect();
+        globalOffset.current = {
+          x: rect.left + window.scrollX,
+          y: rect.top + window.scrollY,
+        };
+      }
     };
 
     window.addEventListener("resize", resizeCanvas);
@@ -87,16 +97,19 @@ const ShapeGrid = ({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (isHex) {
-        const rowShift = Math.floor(gridOffset.current.y / hexVert);
-        const offsetX = ((gridOffset.current.x % hexHoriz) + hexHoriz) % hexHoriz;
-        const offsetY = ((gridOffset.current.y % hexVert) + hexVert) % hexVert;
+        const totalX = alignToDocument ? gridOffset.current.x - globalOffset.current.x : gridOffset.current.x;
+        const totalY = alignToDocument ? gridOffset.current.y - globalOffset.current.y + squareSize : gridOffset.current.y;
+
+        const rowShift = Math.floor(totalY / hexVert);
+        const offsetX = ((totalX % hexHoriz) + hexHoriz) % hexHoriz;
+        const offsetY = ((totalY % hexVert) + hexVert) % hexVert;
 
         const cols = Math.ceil(canvas.width / hexHoriz) + 3;
         const rows = Math.ceil(canvas.height / hexVert) + 3;
 
         for (let col = -2; col < cols; col++) {
           for (let row = -2; row < rows; row++) {
-            const cx = col * hexHoriz + ((row + rowShift) % 2 !== 0 ? hexHoriz / 2 : 0) + offsetX;
+            const cx = col * hexHoriz + ((row - rowShift) % 2 !== 0 ? hexHoriz / 2 : 0) + offsetX;
             const cy = row * hexVert + offsetY;
 
             const cellKey = `${col},${row}`;

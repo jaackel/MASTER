@@ -120,6 +120,7 @@ function Index() {
                 hoverFillColor="rgba(0,216,255,0.5)"
                 shape="hexagon"
                 hoverTrailAmount={17}
+                alignToDocument={true}
               />
             </div>
           </div>
