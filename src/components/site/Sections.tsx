@@ -61,7 +61,8 @@ export function About() {
               eyebrow="// SOBRE"
               title={
                 <>
-                  A <span className="text-gradient-neon">Master Agent</span>
+                  A<br />
+                  <span className="text-gradient-neon">Master Agent</span>
                 </>
               }
               desc="Somos uma agência de provedores de serviços em TI que orquestra a interoperabilidade como um Hub de confiança. Empoderada por mais de 25 anos conectando fabricantes, parceiros e clientes e promovendo a interdependência entre as partes envolvidas."
@@ -200,7 +201,8 @@ function JourneyCarousel() {
           eyebrow="// SOLUÇÕES"
           title={
             <>
-              Serviços da <span className="text-gradient-neon">central</span>
+              Serviços da<br />
+              <span className="text-gradient-neon">central</span>
             </>
           }
           desc="Uma arquitetura resiliente. Protegemos cada fluxo de dados e ponta de infraestrutura. Do processamento na nuvem à IA, a segurança interliga todo o seu ecossistema técnico."
@@ -300,7 +302,8 @@ export function Operation() {
           eyebrow="// OPERAÇÃO"
           title={
             <>
-              Matriz de <span className="text-gradient-neon">Interoperabilidade</span>
+              Matriz de<br />
+              <span className="text-gradient-neon">Interoperabilidade</span>
             </>
           }
           mb="mb-0"
@@ -393,7 +396,8 @@ export function Portfolio() {
           eyebrow="// OPERAÇÕES REALIZADAS"
           title={
             <>
-              Rede de <span className="text-gradient-neon">confiança</span>
+              Rede de<br />
+              <span className="text-gradient-neon">confiança</span>
             </>
           }
           desc="Um recorte das missões executadas pela rede — identidades preservadas por protocolo."
@@ -442,9 +446,12 @@ export function Soc() {
           <SectionHeader
             eyebrow="// SOC AS A SERVICE — OPERAÇÃO 24/7"
             title={
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                <span>Central de <span className="text-gradient-neon">operações</span> 24/7</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+              <div className="flex flex-col gap-3">
+                <span>
+                  Central de<br />
+                  <span className="text-gradient-neon">operações</span> 24/7
+                </span>
+                <span className="inline-flex w-fit items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   ATIVO 24/7/365
                 </span>

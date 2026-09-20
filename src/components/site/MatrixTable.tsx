@@ -37,38 +37,7 @@ export default function MatrixTable() {
   ];
 
   return (
-    <div className="w-full bg-[#03131c]/25 border border-neon-cyan/15 rounded-xl p-6 md:p-8 backdrop-blur-sm relative overflow-hidden mt-2 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
-      {/* Title block */}
-      <div className="mb-2 flex items-center justify-between">
-        <div>
-          <span className="text-[10px] font-mono tracking-widest text-neon-cyan block mb-1">
-            ▸ MATRIZ DE SERVIÇOS
-          </span>
-          <h4 className="text-xl font-title font-bold text-white">
-            Níveis de Sustentação Operacional
-          </h4>
-        </div>
-        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground bg-neon-cyan/5 px-3 py-1.5 rounded border border-neon-cyan/20">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-info w-3.5 h-3.5 text-neon-cyan"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 16v-4" />
-            <path d="M12 8h.01" />
-          </svg>
-          <span>Passe o mouse para cruzar dados</span>
-        </div>
-      </div>
+    <div className="w-full bg-[#03131c]/25 border border-neon-cyan/15 rounded-xl p-3 md:p-4 backdrop-blur-sm relative overflow-hidden mt-2 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
 
       {/* Mobile layout: stacked cards, no horizontal scroll needed */}
       <div className="md:hidden max-w-md mx-auto space-y-3">

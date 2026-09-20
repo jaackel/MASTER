@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ShieldCheck, Radio } from "lucide-react";
+import { ArrowRight, ShieldCheck, Radio, DollarSign } from "lucide-react";
 import ElectricBorder from "./ElectricBorder";
 import Antigravity from "./Antigravity";
 
@@ -32,10 +32,10 @@ export function Hero() {
 
   return (
     <section id="top" className="relative min-h-screen pt-24 pb-16 overflow-hidden bg-hero">
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/50" />
 
-      {/* Grid overlay */}
-      <div className="absolute inset-0 bg-tech-grid opacity-[0.55] [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_75%)]" />
+      {/* Grid overlay - adjusted mask so it reaches the bottom and connects with the rest of the site */}
+      <div className="absolute inset-0 bg-tech-grid opacity-[0.55] [mask-image:radial-gradient(150%_150%_at_top,black_40%,transparent_100%)]" />
 
       {/* Interactive Antigravity background */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -78,7 +78,7 @@ export function Hero() {
             demanda para acelerar sua operação digital.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-col items-start gap-4">
             <a
               href="#servicos"
               className="group inline-flex items-center gap-2 h-12 px-6 rounded-md bg-gradient-to-r from-neon-blue to-neon-cyan text-background font-medium text-sm tracking-wide shadow-[0_0_30px_oklch(0.60_0.23_218/0.4)] hover:shadow-[0_0_50px_oklch(0.60_0.23_218/0.6)] transition-all"
@@ -86,13 +86,22 @@ export function Hero() {
               Conheça nossas soluções
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a
-              href="#soc"
-              className="inline-flex items-center gap-2 h-12 px-6 rounded-md border border-border hover:border-neon-cyan/50 text-sm tracking-wide transition-colors"
-            >
-              <ShieldCheck className="w-4 h-4" />
-              SOC as a Service
-            </a>
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#finops"
+                className="inline-flex items-center gap-2 h-12 px-6 rounded-md border border-border hover:border-neon-cyan/50 text-sm tracking-wide transition-colors"
+              >
+                <DollarSign className="w-4 h-4" />
+                FinOps
+              </a>
+              <a
+                href="#soc"
+                className="inline-flex items-center gap-2 h-12 px-6 rounded-md border border-border hover:border-neon-cyan/50 text-sm tracking-wide transition-colors"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                SOC as a Service
+              </a>
+            </div>
           </div>
 
           <div className="mt-12 flex flex-wrap gap-8 text-xs font-mono text-muted-foreground">
@@ -180,12 +189,11 @@ export function Hero() {
           <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-square flex items-center justify-center animate-float">
             {/* Soft backdrop glow behind illustration */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" />
-            <img 
-              src="https://roxpartner.com/wp-content/uploads/2024/05/Ilustra-20.png" 
-              alt="Cyber Security Cybernetic Shield" 
-              className="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(0,216,255,0.25)]"
-              draggable={false}
-            />
+            
+            {/* Espaço para a "salinha" que o usuário vai colocar */}
+            <div className="w-full h-full border border-dashed border-neon-cyan/20 rounded-lg flex items-center justify-center bg-[#051620]/40 backdrop-blur-sm">
+              <span className="text-xs font-mono text-neon-cyan/50">Espaço para a salinha (NOC/SOC)</span>
+            </div>
           </div>
         </div>
       </div>

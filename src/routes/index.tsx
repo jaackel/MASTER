@@ -110,16 +110,18 @@ function Index() {
         
         {/* Continuous interactive hexagon grid background spanning Services, Operation, Portfolio, Soc, About & Contact */}
         <div className="relative isolate">
-          <div className="absolute inset-0 -z-10 opacity-40 [mask-image:linear-gradient(to_bottom,transparent,black_3%,black_97%,transparent)]">
-            <ShapeGrid
-              speed={0}
-              squareSize={40}
-              direction="diagonal"
-              borderColor="rgba(0,100,255,0.35)"
-              hoverFillColor="rgba(0,216,255,0.5)"
-              shape="hexagon"
-              hoverTrailAmount={17}
-            />
+          <div className="absolute inset-0 -z-10 opacity-[0.55] [mask-image:linear-gradient(to_bottom,black,black_97%,transparent)]">
+            <div className="absolute inset-0 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+              <ShapeGrid
+                speed={0}
+                squareSize={34.64}
+                direction="diagonal"
+                borderColor="rgba(0,200,255,0.18)"
+                hoverFillColor="rgba(0,216,255,0.5)"
+                shape="hexagon"
+                hoverTrailAmount={17}
+              />
+            </div>
           </div>
           <Services />
           <Operation />

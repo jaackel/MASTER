@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
-import { ShieldCheck, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import Singularidade from "./Singularidade";
+import LaserFlow from "./LaserFlow";
 
 interface Milestone {
   year: string;
@@ -10,6 +11,25 @@ interface Milestone {
   x: number; // 3D X coordinate
   y: number; // 3D Y coordinate
   z: number; // 3D Z coordinate
+}
+
+function PartnerLogo({ logoType }: { logoType: Milestone["logoType"] }) {
+  switch (logoType) {
+    case "bee-ibm":
+      return <img src="/logoibm.jpg" alt="Bee / IBM" className="h-11 w-auto object-contain mix-blend-screen" />;
+    case "amd":
+      return <img src="/AMD-Logo.svg" alt="AMD" className="h-9 w-auto object-contain" />;
+    case "ibm-partner":
+      return <img src="/IBM-Business-Partner.png" alt="IBM Business Partner" className="h-10 w-auto object-contain" />;
+    case "hpe":
+      return <img src="/HPE-Logo.png" alt="Hewlett Packard Enterprise" className="h-14 w-auto object-contain" />;
+    case "dell":
+      return <img src="/DELL-Logo.png" alt="Dell Technologies Partner Program" className="h-16 w-auto object-contain" />;
+    case "jitterbit":
+      return <img src="/Jitterbit-Logo.png" alt="Jitterbit" className="h-6 w-auto object-contain" />;
+    case "cisp":
+      return <img src="/CISP-Logo.png" alt="CISP <1>" className="h-7 w-auto object-contain" />;
+  }
 }
 
 export default function Timeline3D() {
@@ -163,17 +183,36 @@ export default function Timeline3D() {
           <span className="text-[10px] font-mono tracking-widest text-neon-cyan block mb-1">
             ▸ PORTFOLIO HISTÓRICO
           </span>
-          <h4 className="text-xl font-title font-bold text-white">Linha do Tempo de Interdependência</h4>
+          <h4 className="text-lg sm:text-xl font-title font-bold text-white">Linha do Tempo de Interdependência</h4>
         </div>
-        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground bg-neon-cyan/5 px-3 py-1.5 rounded border border-neon-cyan/20">
+        <div className="hidden lg:flex items-center gap-2 text-xs font-mono text-muted-foreground bg-neon-cyan/5 px-3 py-1.5 rounded border border-neon-cyan/20 shrink-0">
           <Info className="w-3.5 h-3.5 text-neon-cyan" />
           <span>Passe o mouse sobre os marcos</span>
         </div>
       </div>
 
-      {/* SVG Stage */}
-      <div className="relative z-10 w-full overflow-x-auto scrollbar-none">
-        <div className="min-w-[1200px] mx-auto relative h-[380px]">
+      {/* Mobile / tablet: vertical list — the 1200px 3D stage cannot shrink legibly */}
+      <ol className="lg:hidden relative z-10 flex flex-col gap-3 border-l border-neon-cyan/25 pl-5">
+        {milestones.map((m) => (
+          <li key={m.year} className="relative">
+            <span className="absolute -left-[27px] top-4 w-2.5 h-2.5 rounded-full bg-[#020c12] border-2 border-neon-cyan" />
+            <div className="bg-[#051a25]/90 border border-neon-cyan/25 rounded-lg p-3.5">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono font-bold text-neon-cyan shrink-0">{m.year}</span>
+                <div className="flex items-center justify-center h-9 min-w-0">
+                  <PartnerLogo logoType={m.logoType} />
+                </div>
+              </div>
+              <h5 className="mt-2.5 text-sm font-sans font-bold text-white">Parceria {m.partner}</h5>
+              <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{m.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      {/* Desktop: projected 3D stage */}
+      <div className="hidden lg:block relative z-10 w-full">
+        <div className="mx-auto relative aspect-[1200/380]">
           <svg
             viewBox="0 0 1200 380"
             className="w-full h-full select-none"
@@ -320,66 +359,7 @@ export default function Timeline3D() {
 
                       {/* Partner Logo visual representations */}
                       <div className="flex items-center justify-center h-10 w-full mt-1.5">
-                        {m.logoType === "bee-ibm" && (
-                          <div className="flex items-center gap-1">
-                            {/* Tiny bee SVG */}
-                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                              <circle cx="12" cy="12" r="5" fill="#facc15" stroke="#000" strokeWidth="1" />
-                              <path d="M12 7v10M10 7v10M14 7v10" stroke="#000" strokeWidth="1" />
-                              <path d="M7 10c-2-2 1-4 3-2M17 10c2-2-1-4-3-2" stroke="#22c55e" strokeWidth="1" fill="#4ade80" fillOpacity="0.4" />
-                            </svg>
-                            <span className="text-[9px] font-mono text-[#0064ff] font-bold tracking-tighter">IBM</span>
-                          </div>
-                        )}
-
-                        {m.logoType === "amd" && (
-                          <div className="flex items-center justify-center bg-black border border-emerald-500/30 px-2 py-0.5 rounded gap-1.5">
-                            <span className="text-[10px] font-bold text-white tracking-tighter">AMD</span>
-                            {/* AMD arrow */}
-                            <svg className="w-2.5 h-2.5 fill-emerald-400" viewBox="0 0 24 24">
-                              <path d="M0 24h12l12-12H12L0 24z" />
-                            </svg>
-                          </div>
-                        )}
-
-                        {m.logoType === "ibm-partner" && (
-                          <div className="flex flex-col items-center">
-                            <span className="text-[9px] font-bold text-white tracking-wider border-b border-[#0064ff] pb-0.5 leading-none">IBM Partner</span>
-                            <span className="text-[6px] font-mono text-muted-foreground uppercase tracking-widest mt-0.5">Business</span>
-                          </div>
-                        )}
-
-                        {m.logoType === "hpe" && (
-                          <div className="flex items-center gap-1">
-                            {/* HPE green hollow rect */}
-                            <div className="w-8 h-3.5 border-2 border-[#00b074] rounded-sm shrink-0" />
-                            <span className="text-[7px] font-mono font-bold text-white tracking-tighter uppercase leading-none">HPE</span>
-                          </div>
-                        )}
-
-                        {m.logoType === "dell" && (
-                          <div className="flex items-center gap-1.5 bg-[#002f50]/20 border border-[#007dbd]/40 px-1.5 py-0.5 rounded-md">
-                            <div className="w-4 h-4 rounded-full border border-[#007dbd] flex items-center justify-center text-[7px] font-bold text-white font-sans shrink-0">D</div>
-                            <span className="text-[7.5px] font-sans font-bold text-white tracking-tighter">DELL Tech</span>
-                          </div>
-                        )}
-
-                        {m.logoType === "jitterbit" && (
-                          <div className="flex items-center gap-1">
-                            {/* Jitterbit violet star */}
-                            <svg className="w-3.5 h-3.5 fill-[#8a3ffc]" viewBox="0 0 24 24">
-                              <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" />
-                            </svg>
-                            <span className="text-[8.5px] font-sans font-semibold text-white tracking-tighter">Jitterbit</span>
-                          </div>
-                        )}
-
-                        {m.logoType === "cisp" && (
-                          <div className="flex items-center gap-1">
-                            <ShieldCheck className="w-3.5 h-3.5 text-neon-blue shrink-0" />
-                            <span className="text-[8px] font-mono font-bold text-white bg-neon-blue/20 px-1 py-0.5 rounded border border-neon-blue/40">CISP &lt;1&gt;</span>
-                          </div>
-                        )}
+                        <PartnerLogo logoType={m.logoType} />
                       </div>
 
                       {/* Dot pointer index */}
