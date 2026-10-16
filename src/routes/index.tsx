@@ -9,6 +9,7 @@ import {
   Services,
   Operation,
   Portfolio,
+  FinOps,
   Soc,
   Contact,
   Footer,
@@ -106,10 +107,9 @@ function Index() {
 
       <Nav />
       <main>
-        <Hero />
-        
-        {/* Continuous interactive hexagon grid background spanning Services, Operation, Portfolio, Soc, About & Contact */}
+        {/* Continuous interactive hexagon grid background spanning Hero, Services, Operation, Portfolio, Soc, About & Contact */}
         <div className="relative isolate">
+          <Hero />
           <div className="absolute inset-0 -z-10 opacity-[0.55] [mask-image:linear-gradient(to_bottom,black,black_97%,transparent)]">
             <div className="absolute inset-0 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
               <ShapeGrid
@@ -127,6 +127,7 @@ function Index() {
           <Services />
           <Operation />
           <Portfolio />
+          <FinOps />
           <Soc />
           <About />
           <Contact />

@@ -31,11 +31,10 @@ export function Hero() {
   }, [current, lineIdx]);
 
   return (
-    <section id="top" className="relative min-h-screen pt-24 pb-16 overflow-hidden bg-hero">
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/50" />
-
-      {/* Grid overlay - adjusted mask so it reaches the bottom and connects with the rest of the site */}
-      <div className="absolute inset-0 bg-tech-grid opacity-[0.55] [mask-image:radial-gradient(150%_150%_at_top,black_40%,transparent_100%)]" />
+    <section id="top" className="relative pt-32 lg:pt-40 pb-14 lg:pb-20 overflow-hidden">
+      {/* Backdrop sits below the shared hexagon grid (-z-10) rendered in routes/index.tsx */}
+      <div className="absolute inset-0 -z-20 bg-hero" />
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-background/80 via-background/50 to-background/50" />
 
       {/* Interactive Antigravity background */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -58,7 +57,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_0.9fr_0.9fr] gap-8 lg:gap-10 items-center min-h-[calc(100vh-6rem)]">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_0.9fr_0.9fr] gap-8 lg:gap-10 items-center">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-xs font-mono text-neon-cyan mb-8">
             <Radio className="w-3 h-3 animate-pulse-glow" />
@@ -73,9 +72,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-8 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            O hub estratégico que conecta empresas aos melhores{" "}
-            <span className="text-foreground">especialistas em tecnologia</span>. Agentes sob
-            demanda para acelerar sua operação digital.
+            Uma agência de provedores de serviços de TI que opera como Hub especializado em{" "}
+            <span className="text-foreground">serviços profissionais</span> e{" "}
+            <span className="text-foreground">serviços gerenciados</span>.
           </p>
 
           <div className="mt-10 flex flex-col items-start gap-4">
@@ -187,13 +186,13 @@ export function Hero() {
         {/* Futuristic Illustration column */}
         <div className="hidden lg:flex relative items-center justify-center animate-fade-up" style={{ animationDelay: "0.3s" }}>
           <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-square flex items-center justify-center animate-float">
-            {/* Soft backdrop glow behind illustration */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" />
-            
-            {/* Espaço para a "salinha" que o usuário vai colocar */}
-            <div className="w-full h-full border border-dashed border-neon-cyan/20 rounded-lg flex items-center justify-center bg-[#051620]/40 backdrop-blur-sm">
-              <span className="text-xs font-mono text-neon-cyan/50">Espaço para a salinha (NOC/SOC)</span>
-            </div>
+            {/* SLOT DA IMAGEM FLUTUANTE DO HERO (salinha NOC/SOC).
+                Invisível por enquanto, mas mantém o espaço da coluna e a animação animate-float.
+                Para colocar a imagem: troque o <div> vazio abaixo por
+                <img src="/sua-imagem.png" alt="..." className="w-full h-full object-contain" />
+                e, se quiser, reative o brilho de fundo:
+                <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" /> */}
+            <div className="w-full h-full" aria-hidden="true" />
           </div>
         </div>
       </div>

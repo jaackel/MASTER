@@ -15,6 +15,8 @@ import {
   ServerCog,
   Mail,
   ArrowRight,
+  TrendingDown,
+  PiggyBank,
 } from "lucide-react";
 import MatrixTable from "./MatrixTable";
 import ShapeGrid from "@/components/ShapeGrid";
@@ -48,12 +50,12 @@ import Timeline3D from "./Timeline3D";
 /* ─────────── ABOUT ─────────── */
 export function About() {
   const pillars = [
-    { icon: Network, label: "Rede", value: "Especialistas conectados" },
-    { icon: Lock, label: "Sigilo", value: "Operação confidencial" },
-    { icon: Layers, label: "Escala", value: "Sob demanda" },
+    { icon: Network, label: "Rede", value: "Especialistas dedicados e compartilhados" },
+    { icon: Lock, label: "Sigilo e confidencialidade", value: "Operação Segura" },
+    { icon: Layers, label: "Escala e atendimento", value: "Sob demanda" },
   ];
   return (
-    <section id="sobre" className="relative scroll-mt-24 py-32">
+    <section id="sobre" className="relative scroll-mt-24 py-14 lg:py-20">
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>
@@ -61,14 +63,15 @@ export function About() {
               eyebrow="// SOBRE"
               title={
                 <>
-                  A<br />
+                  Somos a<br />
                   <span className="text-gradient-neon">Master Agent</span>
+                  <span className="text-neon-cyan animate-blink ml-2">_</span>
                 </>
               }
               desc="Somos uma agência de provedores de serviços em TI que orquestra a interoperabilidade como um Hub de confiança. Empoderada por mais de 25 anos conectando fabricantes, parceiros e clientes e promovendo a interdependência entre as partes envolvidas."
             />
             <div className="flex flex-wrap gap-3 mt-4">
-              {["Cloud", "Cyber", "SOC", "IA", "Dados", "DevSec"].map((t) => (
+              {["FinOps", "CyberSec", "Data", "Cloud", "AI"].map((t) => (
                 <span
                   key={t}
                   className="px-3 py-1.5 rounded-md border border-border/60 bg-surface/50 text-xs font-mono text-muted-foreground"
@@ -195,17 +198,17 @@ const servicesData = [
 
 function JourneyCarousel() {
   return (
-    <div className="pt-24 pb-0 w-full bg-transparent">
+    <div className="w-full bg-transparent">
       <div className="max-w-7xl mx-auto px-6 mb-16 animate-fade-up">
         <SectionHeader
-          eyebrow="// SOLUÇÕES"
+          eyebrow="// SERVIÇOS"
           title={
             <>
-              Serviços da<br />
-              <span className="text-gradient-neon">central</span>
+              Soluções<br />
+              <span className="text-gradient-neon">Especializadas</span>
             </>
           }
-          desc="Uma arquitetura resiliente. Protegemos cada fluxo de dados e ponta de infraestrutura. Do processamento na nuvem à IA, a segurança interliga todo o seu ecossistema técnico."
+          desc="Equipes dedicadas para soluções em temas específicos da sua operação de TI."
         />
       </div>
 
@@ -255,7 +258,7 @@ function JourneyCarousel() {
 
 export function Services() {
   return (
-    <section id="servicos" className="relative isolate scroll-mt-24 pt-12">
+    <section id="servicos" className="relative isolate scroll-mt-24 py-14 lg:py-20">
       {/* Full-width journey carousel rendered first */}
       <JourneyCarousel />
     </section>
@@ -268,35 +271,35 @@ const missions = [
     step: "01",
     icon: Target,
     phase: "MISSÃO",
-    title: "Entendimento do desafio",
-    desc: "Briefing técnico, contexto do negócio e mapeamento do objetivo estratégico.",
+    title: "Diagnósticos claros e assertivos",
+    desc: "Imersão no seu ambiente para mapear gargalos, riscos e prioridades, com um plano de ação objetivo.",
   },
   {
     step: "02",
     icon: Users,
     phase: "SELEÇÃO",
-    title: "Agentes adequados",
-    desc: "Ativamos os especialistas certos da rede para o domínio, stack e maturidade.",
+    title: "Equipes e agentes especializados",
+    desc: "Montamos o time ideal para o seu desafio, com especialistas certificados em cada tecnologia.",
   },
   {
     step: "03",
     icon: Zap,
     phase: "EXECUÇÃO",
-    title: "Entrega técnica",
-    desc: "Operação orquestrada, acompanhamento sênior e visibilidade em tempo real.",
+    title: "Entrega garantida e continuidade nos negócios",
+    desc: "SLAs definidos, governança sênior e transparência total para manter sua operação sempre de pé.",
   },
   {
     step: "04",
     icon: Trophy,
     phase: "RESULTADO",
-    title: "Evolução contínua",
-    desc: "Governança de longo prazo, iteração e ganho tecnológico sustentável.",
+    title: "Melhoria contínua da eficiência operacional",
+    desc: "Indicadores acompanhados de perto e ajustes constantes para reduzir custos e ganhar desempenho.",
   },
 ];
 
 export function Operation() {
   return (
-    <section id="operacao" className="relative scroll-mt-24 pt-0 pb-32">
+    <section id="operacao" className="relative scroll-mt-24 py-14 lg:py-20">
       <div className="relative max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// OPERAÇÃO"
@@ -310,24 +313,24 @@ export function Operation() {
         />
       </div>
 
-      {/* Full-width Matrix Panel Container */}
-      <div className="w-full px-4 md:px-8 mt-6">
+      {/* Matrix Panel Container — same width as the Timeline (max-w-7xl) */}
+      <div className="max-w-7xl mx-auto px-6 mt-6">
         <MatrixTable />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
         {/* 4-phase cards methodology at the end */}
-        <div className="mt-28 border-t border-neon-cyan/10 pt-20">
+        <div className="mt-28 lg:mt-40">
           <SectionHeader
             eyebrow="// METODOLOGIA"
             title={
               <>
-                Do briefing
+                Resultado do
                 <br />
-                ao <span className="text-gradient-neon">resultado</span>.
+                <span className="text-gradient-neon">Contínuo</span>
               </>
             }
-            desc="Uma operação em quatro fases, executada por agentes verificados sob protocolo de sigilo."
+            desc="Garantia de continuidade nos negócios, melhoria da eficiência operacional e sucesso no crescimento."
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 relative">
@@ -390,7 +393,7 @@ export function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="relative scroll-mt-24 py-32">
+    <section id="portfolio" className="relative scroll-mt-24 py-14 lg:py-20">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="// OPERAÇÕES REALIZADAS"
@@ -430,6 +433,115 @@ export function Portfolio() {
   );
 }
 
+/* ─────────── FINOPS ─────────── */
+export function FinOps() {
+  const metrics = [
+    { icon: TrendingDown, label: "Redução média", value: "até 35%" },
+    { icon: PiggyBank, label: "Desperdício mapeado", value: "100%" },
+    { icon: Gauge, label: "Visibilidade", value: "Tempo real" },
+    { icon: Cloud, label: "Clouds suportadas", value: "AWS · Azure · GCP" },
+  ];
+
+  const costs = [
+    { service: "Compute", before: 92, after: 61 },
+    { service: "Storage", before: 74, after: 48 },
+    { service: "Database", before: 66, after: 47 },
+    { service: "Network", before: 41, after: 30 },
+    { service: "Licenças", before: 58, after: 35 },
+  ];
+
+  return (
+    <section id="finops" className="relative scroll-mt-24 py-14 lg:py-20">
+      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1fr] gap-12 items-center lg:items-end">
+        <div>
+          <SectionHeader
+            eyebrow="// FINOPS — EFICIÊNCIA FINANCEIRA CLOUD"
+            title={
+              <div className="flex flex-col gap-3">
+                <span>
+                  Cloud sob<br />
+                  <span className="text-gradient-neon">controle</span> financeiro
+                </span>
+                <span className="inline-flex w-fit items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  OTIMIZAÇÃO CONTÍNUA
+                </span>
+              </div>
+            }
+            desc="Visibilidade total dos custos de nuvem, análise de desperdícios, alocação por área e otimização contínua — conduzido por especialistas FinOps da rede Master Agent."
+          />
+          <div className="grid grid-cols-2 gap-3">
+            {metrics.map(({ icon: Icon, label, value }) => (
+              <div key={label} className="glass-panel rounded-lg p-4">
+                <div className="flex items-center gap-2 text-muted-foreground text-[11px] font-mono tracking-wider">
+                  <Icon className="w-3.5 h-3.5" /> {label.toUpperCase()}
+                </div>
+                <div className="mt-2 text-2xl font-semibold text-neon-cyan">{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative group overflow-hidden rounded-xl border border-neon-cyan/20 bg-[#051c27]/40 shadow-[0_0_30px_rgba(0,216,255,0.15)] transition-all duration-500 hover:border-neon-cyan/50 hover:shadow-[0_0_50px_rgba(0,216,255,0.3)] hover:-translate-y-1 hover:scale-[1.02]">
+          {/* Scanline overlay for cyber effect */}
+          <div className="absolute inset-0 bg-scanlines opacity-10 pointer-events-none z-10" />
+
+          {/* Header monitor bar */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-surface/60">
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse-glow" />
+              <span className="text-neon-cyan">COST OPTIMIZATION</span>
+              <span className="text-muted-foreground">/ billing-01</span>
+            </div>
+            <span className="text-[10px] font-mono text-muted-foreground">FINOPS.LIVE_FEED</span>
+          </div>
+
+          {/* Cost breakdown: before vs after optimization */}
+          <div className="p-6 font-mono text-xs">
+            <div className="flex items-center justify-between mb-5 text-[10px] tracking-wider text-muted-foreground">
+              <span>CUSTO MENSAL POR SERVIÇO</span>
+              <span className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-muted-foreground/40" /> ANTES
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-neon-cyan" /> DEPOIS
+                </span>
+              </span>
+            </div>
+            <div className="space-y-4">
+              {costs.map((c) => (
+                <div key={c.service}>
+                  <div className="flex justify-between mb-1.5">
+                    <span className="text-foreground/80">{c.service}</span>
+                    <span className="text-emerald-400">
+                      -{Math.round((1 - c.after / c.before) * 100)}%
+                    </span>
+                  </div>
+                  <div className="relative h-2.5 rounded-sm bg-surface/60 overflow-hidden">
+                    <div
+                      className="absolute inset-y-0 left-0 bg-muted-foreground/30"
+                      style={{ width: `${c.before}%` }}
+                    />
+                    <div
+                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-neon-blue to-neon-cyan shadow-[0_0_10px_rgba(0,216,255,0.5)] transition-all duration-700 group-hover:brightness-125"
+                      style={{ width: `${c.after}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 pt-4 border-t border-border/40 flex justify-between text-muted-foreground">
+              <span>savings_status</span>
+              <span className="text-neon-cyan">◉ OTIMIZANDO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────── SOC ─────────── */
 export function Soc() {
   const metrics = [
@@ -440,8 +552,8 @@ export function Soc() {
   ];
 
   return (
-    <section id="soc" className="relative scroll-mt-24 py-32">
-      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1fr] gap-12 items-center">
+    <section id="soc" className="relative scroll-mt-24 py-14 lg:py-20">
+      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1fr] gap-12 items-center lg:items-end">
         <div>
           <SectionHeader
             eyebrow="// SOC AS A SERVICE — OPERAÇÃO 24/7"
@@ -457,7 +569,7 @@ export function Soc() {
                 </span>
               </div>
             }
-            desc="Monitoramento ininterrupto 24/7/365 com correlação SIEM, threat intelligence e resposta orquestrada a incidentes em tempo real — operado por analistas seniores da rede Master Agent."
+            desc="Operação de Segurança ininterrupta, 24/7/365 que atua com SIEM e ITSM próprios. Equipe técnica altamente especializada e certificada ISO/IEC 27001."
           />
           <div className="grid grid-cols-2 gap-3">
             {metrics.map(({ icon: Icon, label, value }) => (
@@ -508,7 +620,7 @@ export function Soc() {
 /* ─────────── CONTACT ─────────── */
 export function Contact() {
   return (
-    <section id="contato" className="relative scroll-mt-24 py-32">
+    <section id="contato" className="relative scroll-mt-24 py-14 lg:py-20">
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-xs font-mono text-neon-cyan mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />
@@ -516,9 +628,9 @@ export function Contact() {
         </div>
 
         <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-tight">
-          Precisa de um
+          Encontre um agente de
           <br />
-          <span className="text-gradient-neon">agente tecnológico?</span>
+          <span className="text-gradient-neon">serviços em tecnologia.</span>
         </h2>
         <p className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto">
           Descreva o desafio. Ativamos o especialista certo — com sigilo executivo e execução
@@ -536,17 +648,17 @@ export function Contact() {
           </a>
         </div>
 
-        <div className="mt-16 grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto text-left">
+        <div className="mt-16 grid lg:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
           {[
             { label: "CANAL", value: "contato@masteragent.com.br" },
-            { label: "OPERAÇÃO", value: "24/7 · Global" },
-            { label: "PROTOCOLO", value: "NDA por padrão" },
+            { label: "OPERAÇÃO", value: "Operação de Segurança Cibernética 24/7 América Latina" },
+            { label: "PROTOCOLO", value: "Eficiência Financeira e Operacional" },
           ].map((item) => (
-            <div key={item.label} className="glass-panel rounded-md p-4">
+            <div key={item.label} className="glass-panel rounded-md p-5 min-w-0">
               <div className="text-[10px] font-mono tracking-widest text-neon-cyan">
                 {item.label}
               </div>
-              <div className="mt-1 text-sm">{item.value}</div>
+              <div className="mt-1.5 text-sm leading-snug [overflow-wrap:anywhere]">{item.value}</div>
             </div>
           ))}
         </div>

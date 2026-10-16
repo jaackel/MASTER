@@ -39,7 +39,7 @@ export default function Timeline3D() {
     {
       year: "2001",
       partner: "Bee / IBM",
-      desc: "Fundação e estruturação de canais de distribuição de TI.",
+      desc: "Operação comercial de Servidores x86, para mercado SMB, Indústrias e Telecom.",
       logoType: "bee-ibm",
       x: -480,
       y: 10,
@@ -48,7 +48,7 @@ export default function Timeline3D() {
     {
       year: "2004",
       partner: "AMD",
-      desc: "Distribuição e consolidação do programa de parcerias AMD.",
+      desc: "Distribuição de Processadores para América Latina, FOB Miami.",
       logoType: "amd",
       x: -320,
       y: -2,
@@ -57,7 +57,7 @@ export default function Timeline3D() {
     {
       year: "2009",
       partner: "IBM Partner",
-      desc: "Homologação oficial como IBM Business Partner no mercado nacional.",
+      desc: "Distribuição de Storages e Servidores RISC (IBM Power) para Indústria Privada e Governo.",
       logoType: "ibm-partner",
       x: -160,
       y: -10,
@@ -66,7 +66,7 @@ export default function Timeline3D() {
     {
       year: "2017",
       partner: "HPE",
-      desc: "Integração e arquitetura de sistemas com a Hewlett Packard Enterprise.",
+      desc: "High Performance Computing (HPC) para ciências biológicas, química teórica e física computacional.",
       logoType: "hpe",
       x: 0,
       y: -12,
@@ -75,7 +75,7 @@ export default function Timeline3D() {
     {
       year: "2018",
       partner: "Dell Tech",
-      desc: "Credenciamento no Dell Technologies Partner Program.",
+      desc: "Distribuição de Servidores e Switches para mercado SMB interno.",
       logoType: "dell",
       x: 160,
       y: -10,
@@ -84,7 +84,7 @@ export default function Timeline3D() {
     {
       year: "2022",
       partner: "Jitterbit",
-      desc: "Alocação e orquestração de APIs e integrações Jitterbit.",
+      desc: "Desenvolvimento e distribuição de canais em Middleware (Gateway de API) para América Latina.",
       logoType: "jitterbit",
       x: 320,
       y: -2,
@@ -93,7 +93,7 @@ export default function Timeline3D() {
     {
       year: "2024",
       partner: "CISP",
-      desc: "Homologação corporativa e obtenção da chancela CISP <1>.",
+      desc: "Provedora e Delivery de serviços especializados em Inteligência Artificial.",
       logoType: "cisp",
       x: 480,
       y: 10,
@@ -181,13 +181,13 @@ export default function Timeline3D() {
       <div className="relative z-10 mb-8 flex items-center justify-between">
         <div>
           <span className="text-[10px] font-mono tracking-widest text-neon-cyan block mb-1">
-            ▸ PORTFOLIO HISTÓRICO
+            ▸ LEGADO E ATUAÇÃO
           </span>
-          <h4 className="text-lg sm:text-xl font-title font-bold text-white">Linha do Tempo de Interdependência</h4>
+          <h4 className="text-lg sm:text-xl font-title font-bold text-white">A História e interdependência da Master Agent</h4>
         </div>
         <div className="hidden lg:flex items-center gap-2 text-xs font-mono text-muted-foreground bg-neon-cyan/5 px-3 py-1.5 rounded border border-neon-cyan/20 shrink-0">
           <Info className="w-3.5 h-3.5 text-neon-cyan" />
-          <span>Passe o mouse sobre os marcos</span>
+          <span>Conheça nossa história</span>
         </div>
       </div>
 

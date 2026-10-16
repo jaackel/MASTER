@@ -26,7 +26,16 @@ export function Nav() {
             : "mt-0 w-full max-w-7xl h-16 px-6 rounded-none bg-transparent border-transparent shadow-none"
         }`}
       >
-        <a href="#top" className="flex items-center gap-2.5 group">
+        <a
+          href="/"
+          onClick={(e) => {
+            // Back to the hero without leaving a #hash in the URL
+            e.preventDefault();
+            window.history.replaceState(null, "", window.location.pathname + window.location.search);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="flex items-center gap-2.5 group"
+        >
           <div className="w-[60px] h-[60px] flex items-center justify-center relative">
             <img 
               src="/logo.png" 
