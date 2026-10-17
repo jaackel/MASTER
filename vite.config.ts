@@ -22,6 +22,8 @@ export default defineConfig({
     tailwindcss(),
     tanstackStart({
       server: { entry: "server" },
+      // Gera HTML estático de todas as páginas em dist/client (deploy na Cloudflare sem servidor)
+      prerender: { enabled: true, crawlLinks: true, autoSubfolderIndex: true },
       importProtection: {
         behavior: "error",
         client: {
