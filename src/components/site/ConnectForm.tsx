@@ -1,6 +1,26 @@
 import { useState, useEffect } from "react";
 import { X, Send, CheckCircle2, Shield, ArrowRight } from "lucide-react";
 
+// Envio via FormSubmit (sem backend/SMTP). O primeiro envio dispara um e-mail de
+// ativação para o endereço abaixo — é preciso clicar no link uma vez para liberar.
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/contato@masteragent.com.br";
+
+const DOMAIN_LABELS: Record<string, string> = {
+  cloudops: "CloudOps",
+  gitops: "GitOps",
+  dataops: "DataOps",
+  devsecops: "DevSecOps",
+  finops: "FinOps",
+  mliaops: "ML / AIOps",
+  outros: "Outros",
+};
+
+const BUDGET_LABELS: Record<string, string> = {
+  "10k-50k": "US$ 10k - 50k",
+  "50k-200k": "US$ 50k - 200k",
+  "200k+": "> US$ 200k",
+};
+
 interface ConnectFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -14,7 +34,7 @@ export default function ConnectForm({ isOpen, onClose }: ConnectFormProps) {
     challenge: "",
     budget: "10k-50k",
   });
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [logs, setLogs] = useState<string[]>([]);
 
   // Prevent scroll when modal is open
@@ -50,8 +70,32 @@ export default function ConnectForm({ isOpen, onClose }: ConnectFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
-    await simulateLogs();
-    setStatus("success");
+    setLogs([]);
+    try {
+      const [res] = await Promise.all([
+        fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            _subject: `Novo briefing pelo site — ${formData.name}`,
+            _replyto: formData.email,
+            _template: "table",
+            _captcha: "false",
+            "Nome / Empresa": formData.name,
+            "E-mail": formData.email,
+            "Domínio principal": DOMAIN_LABELS[formData.domain] ?? formData.domain,
+            "Orçamento": BUDGET_LABELS[formData.budget] ?? formData.budget,
+            "Desafio técnico": formData.challenge,
+          }),
+        }),
+        simulateLogs(),
+      ]);
+      const data = await res.json().catch(() => null);
+      if (!res.ok || (data && String(data.success) === "false")) throw new Error("send failed");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (!isOpen) return null;
@@ -174,6 +218,24 @@ export default function ConnectForm({ isOpen, onClose }: ConnectFormProps) {
                     className="w-full p-4 rounded-md border border-border/40 bg-[#051c27]/40 text-sm text-foreground focus:outline-none focus:border-neon-cyan/50 focus:ring-1 focus:ring-neon-cyan/30 transition-all placeholder:text-muted-foreground/50 resize-none leading-relaxed"
                   />
                 </div>
+
+                {status === "error" && (
+                  <div className="rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300">
+                    Não foi possível enviar agora. Tente novamente ou escreva para{" "}
+                    <a href="mailto:contato@masteragent.com.br" className="underline">
+                      contato@masteragent.com.br
+                    </a>
+                    .
+                  </div>
+                )}
+
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Ao enviar, você concorda com os{" "}
+                  <a href="/privacidade" target="_blank" rel="noopener" className="text-neon-cyan hover:underline">
+                    Termos de Uso e a Política de Privacidade
+                  </a>
+                  .
+                </p>
 
                 <div className="pt-2">
                   <button

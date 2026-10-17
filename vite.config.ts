@@ -9,7 +9,7 @@ export default defineConfig({
     port: 8080,
   },
   preview: {
-    allowedHosts: ["sitevision.com.br"],
+    allowedHosts: ["sitevision.com.br", "www.sitevision.com.br", "masteragent.com.br", "www.masteragent.com.br"],
   },
   resolve: {
     tsconfigPaths: true,

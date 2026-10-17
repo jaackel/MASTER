@@ -27,14 +27,16 @@ function SectionHeader({
   title,
   desc,
   mb = "mb-16",
+  maxW = "max-w-2xl",
 }: {
   eyebrow: string;
   title: React.ReactNode;
   desc?: string;
   mb?: string;
+  maxW?: string;
 }) {
   return (
-    <div className={`max-w-2xl ${mb}`}>
+    <div className={`${maxW} ${mb}`}>
       <div className="inline-flex items-center gap-2 mb-4 text-xs font-mono tracking-[0.25em] text-neon-cyan">
         <span className="w-8 h-px bg-neon-cyan" />
         {eyebrow}
@@ -209,6 +211,7 @@ function JourneyCarousel() {
             </>
           }
           desc="Equipes dedicadas para soluções em temas específicos da sua operação de TI."
+          maxW="max-w-3xl"
         />
       </div>
 
@@ -650,7 +653,7 @@ export function Contact() {
 
         <div className="mt-16 grid lg:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
           {[
-            { label: "CANAL", value: "contato@masteragent.com.br" },
+            { label: "CANAL", value: "contato@masteragent.com.br", href: "mailto:contato@masteragent.com.br" },
             { label: "OPERAÇÃO", value: "Operação de Segurança Cibernética 24/7 América Latina" },
             { label: "PROTOCOLO", value: "Eficiência Financeira e Operacional" },
           ].map((item) => (
@@ -658,7 +661,15 @@ export function Contact() {
               <div className="text-[10px] font-mono tracking-widest text-neon-cyan">
                 {item.label}
               </div>
-              <div className="mt-1.5 text-sm leading-snug [overflow-wrap:anywhere]">{item.value}</div>
+              <div className="mt-1.5 text-sm leading-snug [overflow-wrap:anywhere]">
+                {"href" in item ? (
+                  <a href={item.href} className="hover:text-neon-cyan transition-colors">
+                    {item.value}
+                  </a>
+                ) : (
+                  item.value
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -676,7 +687,15 @@ export function Footer() {
           <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />
           <span>MASTER AGENT © {new Date().getFullYear()} · SECURE HUB</span>
         </div>
-        <div className="tracking-wider">v2.6.1 · build.stable · zone.br</div>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 tracking-wider">
+          <a href="mailto:contato@masteragent.com.br" className="hover:text-neon-cyan transition-colors">
+            contato@masteragent.com.br
+          </a>
+          <a href="/privacidade" className="hover:text-neon-cyan transition-colors">
+            Termos de Uso e Privacidade
+          </a>
+          <span>v2.6.1 · build.stable · zone.br</span>
+        </div>
       </div>
     </footer>
   );
