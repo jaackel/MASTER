@@ -186,13 +186,8 @@ export function Hero() {
         {/* Futuristic Illustration column */}
         <div className="hidden lg:flex relative items-center justify-center animate-fade-up" style={{ animationDelay: "0.3s" }}>
           <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-square flex items-center justify-center animate-float">
-            {/* SLOT DA IMAGEM FLUTUANTE DO HERO (salinha NOC/SOC).
-                Invisível por enquanto, mas mantém o espaço da coluna e a animação animate-float.
-                Para colocar a imagem: troque o <div> vazio abaixo por
-                <img src="/sua-imagem.png" alt="..." className="w-full h-full object-contain" />
-                e, se quiser, reative o brilho de fundo:
-                <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" /> */}
-            <div className="w-full h-full" aria-hidden="true" />
+            <div className="absolute -inset-4 bg-gradient-to-tr from-neon-blue/10 via-transparent to-neon-cyan/20 blur-2xl pointer-events-none" />
+            <img src="/cloud-ops.png" alt="Cloud Ops" className="relative w-full h-full object-contain" />
           </div>
         </div>
       </div>
