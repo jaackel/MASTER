@@ -66,8 +66,8 @@ export function About() {
               title={
                 <>
                   Somos a<br />
-                  <span className="text-gradient-neon">Master Agent</span>
-                  <span className="text-neon-cyan animate-blink ml-2">_</span>
+                  Master <span className="text-[#00c8ff]">Agent</span>
+                  <span className="text-[#00c8ff] animate-blink ml-2">_</span>
                 </>
               }
               desc="Somos uma agência de provedores de serviços em TI que orquestra a interoperabilidade como um Hub de confiança. Empoderada por mais de 25 anos conectando fabricantes, parceiros e clientes e promovendo a interdependência entre as partes envolvidas."
@@ -403,7 +403,7 @@ export function Portfolio() {
           title={
             <>
               Rede de<br />
-              <span className="text-gradient-neon">confiança</span>
+              <span className="text-gradient-neon">Confiança</span>
             </>
           }
           desc="Um recorte das missões executadas pela rede — identidades preservadas por protocolo."
@@ -564,7 +564,7 @@ export function Soc() {
               <div className="flex flex-col gap-3">
                 <span>
                   Central de<br />
-                  <span className="text-gradient-neon">operações</span> 24/7
+                  <span className="text-gradient-neon">Operações</span> 24/7
                 </span>
                 <span className="inline-flex w-fit items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>

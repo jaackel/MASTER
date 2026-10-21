@@ -83,9 +83,9 @@ export function Nav() {
         <div className="flex items-center gap-3">
           <a
             href="#conectar"
-            className="hidden sm:inline-flex items-center gap-2 h-9 px-4 rounded-md text-xs font-medium tracking-wide border border-neon-blue/40 text-neon-cyan hover:bg-neon-blue/10 hover:shadow-[0_0_20px_oklch(0.72_0.2_240/0.3)] transition-all"
+            className="hidden sm:inline-flex items-center gap-2 h-9 px-4 rounded-md text-xs font-medium tracking-wide border border-[#00c8ff]/40 text-[#00c8ff] hover:bg-[#00c8ff]/10 hover:shadow-[0_0_20px_oklch(0.72_0.2_240/0.3)] transition-all"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse-glow" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00c8ff] animate-pulse-glow" />
             CONECTAR
           </a>
         </div>

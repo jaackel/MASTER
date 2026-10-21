@@ -67,8 +67,8 @@ export function Hero() {
           <h1 className="font-sans text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.95]">
             Master
             <br />
-            <span className="text-gradient-neon">Agent</span>
-            <span className="text-neon-cyan animate-blink ml-2">_</span>
+            <span className="text-[#00c8ff]">Agent</span>
+            <span className="text-[#00c8ff] animate-blink ml-2">_</span>
           </h1>
 
           <p className="mt-8 text-lg text-muted-foreground max-w-xl leading-relaxed">
